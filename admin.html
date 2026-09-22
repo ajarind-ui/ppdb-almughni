@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Al-Mughni</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/FT2H1oL.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { primary: '#17BEBB', 'primary-dark': '#0E8A87', gold: '#F5C542', green: '#4CAF50', 'green-dark': '#1B5E20' },
+    fontFamily: { poppins: ['Poppins', 'sans-serif'] }
+  }}
+}
+</script>
+<style>
+  body { font-family: 'Poppins', sans-serif; }
+  .tab-btn.active { background: #17BEBB; color: white; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #17BEBB; border-radius: 4px; }
+</style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+
+<!-- LOGIN -->
+<div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+    <img src="https://i.imgur.com/FT2H1oL.png" alt="Logo" class="h-20 w-auto mx-auto mb-4">
+    <h1 class="text-2xl font-extrabold text-primary mb-2">Admin Panel</h1>
+    <p class="text-gray-500 text-sm mb-6">Yayasan Pendidikan Al-Mughni Kedung Gede</p>
+    <input id="password" type="password" placeholder="Masukkan password" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:border-primary outline-none mb-3 text-center">
+    <button onclick="login()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark transition">
+      <i class="fas fa-sign-in-alt mr-2"></i>Masuk
+    </button>
+    <p id="loginError" class="text-red-500 text-sm mt-3 hidden">Password salah!</p>
+    <p class="text-xs text-gray-400 mt-4">Default: <code class="bg-gray-100 px-2 py-1 rounded">admin123</code></p>
+    <a href="index.html" class="text-xs text-gray-400 hover:text-primary mt-3 inline-block"><i class="fas fa-arrow-left mr-1"></i>Kembali ke Website</a>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+  <!-- Header -->
+  <header class="bg-primary text-white shadow-lg sticky top-0 z-30">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="https://i.imgur.com/FT2H1oL.png" alt="Logo" class="h-10 w-auto bg-white rounded p-1">
+        <div>
+          <p class="font-bold text-sm">Admin Dashboard</p>
+          <p class="text-xs text-primary-light">Al-Mughni PPDB 2027/2028</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="text-xs bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg"><i class="fas fa-globe mr-1"></i>Lihat Website</a>
+        <button onclick="logout()" class="text-xs bg-red-500 hover:bg-red-600 px-3 py-2 rounded-lg"><i class="fas fa-sign-out-alt mr-1"></i>Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 py-6">
+    <!-- Tabs -->
+    <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+      <button onclick="switchTab('ppdb')" class="tab-btn active px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap">
+        <i class="fas fa-users mr-2"></i>Data PPDB
+      </button>
+      <button onclick="switchTab('pengaturan')" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm whitespace-nowrap">
+        <i class="fas fa-cog mr-2"></i>Pengaturan
+      </button>
+    </div>
+
+    <!-- TAB: DATA PPDB -->
+    <div id="tab-ppdb" class="tab-content">
+      <div class="bg-white rounded-2xl shadow p-6 mb-4">
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+          <div>
+            <h2 class="text-xl font-bold text-green-dark">Data Pendaftar</h2>
+            <p class="text-xs text-gray-500">Total: <span id="totalCount" class="font-bold text-primary">0</span> pendaftar</p>
+          </div>
+          <div class="flex gap-2">
+            <select id="filterJenjang" onchange="renderPPDB()" class="border-2 border-gray-200 rounded-lg px-3 py-2 text-sm">
+              <option value="">Semua Jenjang</option>
+              <option>TK Islam Al-Mughni</option>
+              <option>SD Islam Al-Mughni</option>
+              <option>SMP YAPIA Al-Mughni</option>
+            </select>
+            <button onclick="exportExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700 transition">
+              <i class="fas fa-file-excel mr-1"></i>Download Excel
+            </button>
+            <button onclick="renderPPDB()" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-dark">
+              <i class="fas fa-sync mr-1"></i>Refresh
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-primary/10 text-primary">
+              <tr>
+                <th class="p-3 text-left">No. Daftar</th>
+                <th class="p-3 text-left">Tanggal</th>
+                <th class="p-3 text-left">Nama</th>
+                <th class="p-3 text-left">Jenjang</th>
+                <th class="p-3 text-left">TTL</th>
+                <th class="p-3 text-left">Ortu</th>
+                <th class="p-3 text-left">WA</th>
+                <th class="p-3 text-left">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="ppdbTable"></tbody>
+          </table>
+          <p id="emptyMsg" class="text-center text-gray-500 py-8 hidden">Belum ada data pendaftar.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: PENGATURAN -->
+    <div id="tab-pengaturan" class="tab-content hidden">
+      <div class="bg-white rounded-2xl shadow p-6 max-w-2xl">
+        <h2 class="text-xl font-bold text-green-dark mb-4">Pengaturan Sistem</h2>
+        <form id="settingsForm" class="space-y-5">
+          <div class="bg-primary/5 p-5 rounded-2xl">
+            <h3 class="font-bold text-primary mb-3"><i class="fab fa-google mr-2"></i>Google Apps Script URL</h3>
+            <input id="set_appsScriptUrl" type="text" placeholder="https://script.google.com/macros/s/.../exec" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-primary outline-none">
+            <p class="text-xs text-gray-500 mt-2">URL Web App dari Google Apps Script (untuk menyimpan data ke Sheets).</p>
+          </div>
+          <button type="submit" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-dark transition">
+            <i class="fas fa-save mr-2"></i>Simpan Pengaturan
+          </button>
+          <span id="savedMsg" class="text-green-600 text-sm ml-3 hidden"><i class="fas fa-check"></i> Tersimpan</span>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const LOCAL_PPDB_KEY = 'sit_ppdb_data';
+const ADMIN_PASSWORD_KEY = 'sit_admin_password';
+const DEFAULT_PASSWORD = 'admin123';
+
+function getPassword() { return localStorage.getItem(ADMIN_PASSWORD_KEY) || DEFAULT_PASSWORD; }
+
+function login() {
+  const input = document.getElementById('password').value;
+  if (input === getPassword()) {
+    sessionStorage.setItem('sit_admin_logged', '1');
+    showDashboard();
+  } else {
+    document.getElementById('loginError').classList.remove('hidden');
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('sit_admin_logged');
+  location.reload();
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+  loadSettings();
+  renderPPDB();
+}
+
+function switchTab(tab) {
+  ['ppdb', 'pengaturan'].forEach(t => {
+    document.getElementById('tab-' + t).classList.toggle('hidden', t !== tab);
+    document.querySelector(`button[onclick="switchTab('${t}')"]`).classList.toggle('active', t === tab);
+  });
+}
+
+function getPPDBData() { return JSON.parse(localStorage.getItem(LOCAL_PPDB_KEY) || '[]'); }
+
+function renderPPDB() {
+  const filter = document.getElementById('filterJenjang').value;
+  let list = getPPDBData();
+  if (filter) list = list.filter(d => d.jenjang === filter);
+
+  const tbody = document.getElementById('ppdbTable');
+  const empty = document.getElementById('emptyMsg');
+  document.getElementById('totalCount').textContent = list.length;
+
+  if (!list.length) { tbody.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+
+  tbody.innerHTML = list.map((d, i) => `
+    <tr class="border-b hover:bg-gray-50">
+      <td class="p-3 font-mono text-xs font-bold text-primary">${d.reg_number || '-'}</td>
+      <td class="p-3 text-xs">${new Date(d.timestamp).toLocaleDateString('id-ID')}</td>
+      <td class="p-3 font-semibold">${d.nama_lengkap || '-'}</td>
+      <td class="p-3 text-xs">${d.jenjang || '-'}</td>
+      <td class="p-3 text-xs">${d.tempat_lahir || '-'}, ${d.tanggal_lahir || '-'}</td>
+      <td class="p-3 text-xs">${d.nama_ayah || '-'} / ${d.nama_ibu || '-'}</td>
+      <td class="p-3 text-xs">
+        <a href="https://wa.me/${(d.hp||'').replace(/^0/, '62')}" target="_blank" class="text-green-600 hover:underline">
+          <i class="fab fa-whatsapp"></i> ${d.hp || '-'}
+        </a>
+      </td>
+      <td class="p-3">
+        <button onclick="viewDetail(${i})" class="text-primary hover:text-primary-dark text-xs"><i class="fas fa-eye"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function viewDetail(index) {
+  const d = getPPDBData()[index];
+  if (!d) return;
+  const html = Object.entries(d).map(([k, v]) =>
+    `<div class="py-1 border-b border-gray-100"><span class="font-semibold text-xs text-gray-500 inline-block w-40">${k}</span><span class="text-sm">${v || '-'}</span></div>`
+  ).join('');
+  const w = window.open('', '_blank');
+  w.document.write(`
+    <html><head><title>Detail Pendaftar - ${d.nama_lengkap}</title>
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body{font-family:Poppins,sans-serif}</style>
+    </head><body class="bg-gray-50 p-6">
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow p-6">
+        <h1 class="text-2xl font-bold text-green-700 mb-4">Detail Pendaftar</h1>
+        <p class="text-sm text-gray-500 mb-6">No. Pendaftaran: <b class="text-teal-600">${d.reg_number}</b></p>
+        ${html}
+        <button onclick="window.print()" class="mt-6 bg-teal-600 text-white px-6 py-2 rounded-lg font-bold">Print</button>
+      </div>
+    </body></html>
+  `);
+}
+
+function exportExcel() {
+  const list = getPPDBData();
+  if (!list.length) { alert('Belum ada data untuk diunduh.'); return; }
+
+  const rows = list.map(d => ({
+    'No. Pendaftaran': d.reg_number || '',
+    'Tanggal Daftar': d.timestamp,
+    'Jenjang': d.jenjang || '',
+    'Nama Lengkap': d.nama_lengkap || '',
+    'Nama Panggilan': d.nama_panggilan || '',
+    'Tempat Lahir': d.tempat_lahir || '',
+    'Tanggal Lahir': d.tanggal_lahir || '',
+    'Jenis Kelamin': d.jenis_kelamin || '',
+    'Agama': d.agama || '',
+    'NIK': d.nik || '',
+    'NIS/NISN': d.nisn || '',
+    'Kewarganegaraan': d.kewarganegaraan || '',
+    'Anak ke': d.anak_ke || '',
+    'Berat Badan': d.berat_badan || '',
+    'Tinggi Badan': d.tinggi_badan || '',
+    'Alamat': d.alamat || '',
+    'No HP': d.hp || '',
+    'Jenis Tinggal': d.jenis_tinggal || '',
+    'Nama Ayah': d.nama_ayah || '',
+    'NIK Ayah': d.nik_ayah || '',
+    'Pekerjaan Ayah': d.pekerjaan_ayah || '',
+    'Usia Ayah': d.usia_ayah || '',
+    'Pendidikan Ayah': d.pendidikan_ayah || '',
+    'Penghasilan Ayah': d.penghasilan_ayah || '',
+    'Nama Ibu': d.nama_ibu || '',
+    'NIK Ibu': d.nik_ibu || '',
+    'Pekerjaan Ibu': d.pekerjaan_ibu || '',
+    'Usia Ibu': d.usia_ibu || '',
+    'Pendidikan Ibu': d.pendidikan_ibu || '',
+    'Penghasilan Ibu': d.penghasilan_ibu || '',
+    'Nama Wali': d.nama_wali || '',
+    'NIK Wali': d.nik_wali || '',
+    'Pekerjaan Wali': d.pekerjaan_wali || '',
+    'Usia Wali': d.usia_wali || '',
+    'Pendidikan Wali': d.pendidikan_wali || '',
+    'Penghasilan Wali': d.penghasilan_wali || '',
+    'Asal Sekolah': d.asal_sekolah || '',
+    'NPSN Sekolah': d.npsn || '',
+    'Alamat Sekolah': d.alamat_sekolah || ''
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  ws['!cols'] = Object.keys(rows[0]).map(() => ({ wch: 20 }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'PPDB');
+  XLSX.writeFile(wb, `PPDB-AlMughni-2027-2028-${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+
+function loadSettings() {
+  document.getElementById('set_appsScriptUrl').value = localStorage.getItem('sit_apps_script_url') || '';
+}
+
+document.getElementById('settingsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  localStorage.setItem('sit_apps_script_url', document.getElementById('set_appsScriptUrl').value.trim());
+  const m = document.getElementById('savedMsg');
+  m.classList.remove('hidden');
+  setTimeout(() => m.classList.add('hidden'), 2000);
+});
+
+// Init
+if (sessionStorage.getItem('sit_admin_logged') === '1') {
+  showDashboard();
+}
+</script>
+
+</body>
+</html>

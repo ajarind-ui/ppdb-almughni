@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TK, SD, SMP Al-Mughni Kedung Gede - PPDB 2027/2028</title>
+<meta name="description" content="Penerimaan Peserta Didik Baru TK, SD, SMP Al-Mughni Kedung Gede, Tambun Selatan, Bekasi. Tahun Ajaran 2027/2028. Diskon uang pangkal hingga 50%!">
+<link rel="icon" type="image/png" href="https://i.imgur.com/FT2H1oL.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#17BEBB',
+        'primary-dark': '#0E8A87',
+        blue: '#4A9FE0',
+        'blue-dark': '#2E7BC4',
+        gold: '#F5C542',
+        'gold-dark': '#D4A017',
+        green: '#4CAF50',
+        'green-dark': '#1B5E20',
+        cream: '#F8F9FA'
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        amiri: ['Amiri', 'serif']
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+  .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); }
+  .hover-up { transition: transform .3s ease, box-shadow .3s ease; }
+  .hover-up:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+  .popup-overlay { display: none; }
+  .popup-overlay.active { display: flex; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: #17BEBB; border-radius: 4px; }
+  .pattern-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2317BEBB' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .step-active { background: #17BEBB; color: white; }
+  .step-inactive { background: #E5E7EB; color: #6B7280; }
+  .form-label { font-size: 0.8rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem; display: block; }
+  .form-input { width: 100%; border: 1px solid #D1D5DB; border-radius: 0.75rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; outline: none; transition: .2s; }
+  .form-input:focus { border-color: #17BEBB; box-shadow: 0 0 0 3px rgba(23,190,187,0.15); }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .marquee { animation: marquee 30s linear infinite; }
+</style>
+</head>
+
+<body class="bg-cream text-slate-800">
+
+<!-- ========== TOP MARQUEE PPDB ========== -->
+<div class="bg-gold text-green-dark py-2 overflow-hidden whitespace-nowrap text-sm font-bold">
+  <div class="inline-block marquee">
+    <span class="mx-8">🎉 PPDB 2027/2028 DIBUKA!</span>
+    <span class="mx-8">💰 Diskon Uang Pangkal hingga 50% untuk Gelombang 1</span>
+    <span class="mx-8">📞 Info: Ibu Endang 0895-1158-675</span>
+    <span class="mx-8">🏫 TK, SD, SMP Al-Mughni Kedung Gede - Tambun Selatan, Bekasi</span>
+    <span class="mx-8">🎉 PPDB 2027/2028 DIBUKA!</span>
+    <span class="mx-8">💰 Diskon Uang Pangkal hingga 50% untuk Gelombang 1</span>
+    <span class="mx-8">📞 Info: Ibu Endang 0895-1158-675</span>
+    <span class="mx-8">🏫 TK, SD, SMP Al-Mughni Kedung Gede - Tambun Selatan, Bekasi</span>
+  </div>
+</div>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="sticky top-0 w-full z-40 glass shadow-md">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <a href="#beranda" class="flex items-center gap-3">
+      <img src="https://i.imgur.com/FT2H1oL.png" alt="Logo Al-Mughni" class="h-12 w-auto">
+      <div>
+        <span class="text-lg md:text-xl font-extrabold text-primary leading-none block">Al-Mughni</span>
+        <span class="text-[10px] text-gray-500 tracking-wider">TK · SD · SMP KEDUNG GEDE</span>
+      </div>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-6 font-semibold text-sm">
+      <a href="#beranda" class="hover:text-primary transition"><i class="fas fa-house mr-1"></i>Beranda</a>
+      <a href="#profil" class="hover:text-primary transition"><i class="fas fa-circle-info mr-1"></i>Profil</a>
+      <a href="#jenjang" class="hover:text-primary transition"><i class="fas fa-graduation-cap mr-1"></i>Jenjang</a>
+      <a href="#biaya" class="hover:text-primary transition"><i class="fas fa-tags mr-1"></i>Biaya</a>
+      <a href="#ekskul" class="hover:text-primary transition"><i class="fas fa-futbol mr-1"></i>Ekskul</a>
+      <a href="#ppdb" class="bg-primary text-white px-5 py-2 rounded-full font-bold hover:bg-primary-dark transition shadow-lg">
+        <i class="fas fa-user-plus mr-1"></i>Daftar PPDB
+      </a>
+      <a href="admin.html" class="text-gray-400 hover:text-primary transition" title="Admin"><i class="fas fa-user-shield"></i></a>
+    </div>
+
+    <button id="menuBtn" class="lg:hidden text-primary text-2xl focus:outline-none">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="hidden lg:hidden bg-primary text-white px-6 py-6 space-y-3 shadow-xl">
+    <a href="#beranda" class="block font-bold text-gold"><i class="fas fa-house w-6"></i>Beranda</a>
+    <a href="#profil" class="block hover:text-gold"><i class="fas fa-circle-info w-6"></i>Profil</a>
+    <a href="#jenjang" class="block hover:text-gold"><i class="fas fa-graduation-cap w-6"></i>Jenjang</a>
+    <a href="#biaya" class="block hover:text-gold"><i class="fas fa-tags w-6"></i>Biaya</a>
+    <a href="#ekskul" class="block hover:text-gold"><i class="fas fa-futbol w-6"></i>Ekskul</a>
+    <a href="#fasilitas" class="block hover:text-gold"><i class="fas fa-building w-6"></i>Fasilitas</a>
+    <a href="#kontak" class="block hover:text-gold"><i class="fas fa-address-book w-6"></i>Kontak</a>
+    <a href="#ppdb" class="block bg-gold text-green-dark px-4 py-2 rounded-lg text-center font-bold mt-2">
+      <i class="fas fa-user-plus mr-1"></i>Daftar PPDB
+    </a>
+    <a href="admin.html" class="block text-gray-300 hover:text-gold text-sm mt-2"><i class="fas fa-user-shield mr-1"></i>Admin Panel</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="beranda" class="relative overflow-hidden bg-blue">
+  <div class="absolute inset-0">
+    <img src="https://i.imgur.com/1Po0rME.jpeg" alt="Gedung Al-Mughni" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-dark/95 via-blue-dark/80 to-transparent"></div>
+  </div>
+
+  <div class="container mx-auto px-6 py-20 md:py-32 relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+    <div class="text-white">
+      <span class="bg-gold text-green-dark px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4 shadow-lg">
+        <i class="fas fa-bullhorn mr-1"></i> PPDB 2027/2028 DIBUKA
+      </span>
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
+        Selamat Datang di <br>
+        <span class="text-gold">TK, SD, SMP Al-Mughni</span>
+      </h1>
+      <p class="text-lg md:text-xl mb-6 text-blue-50 max-w-xl">
+        Membentuk generasi beriman, bertaqwa, berkarakter, berprestasi, berwawasan global, serta berbudaya.
+      </p>
+      <div class="flex gap-3 flex-wrap">
+        <a href="#ppdb" class="bg-gold text-green-dark px-7 py-3.5 rounded-full font-bold text-lg hover:bg-gold-dark hover:text-white transition shadow-xl">
+          <i class="fas fa-user-plus mr-2"></i> Daftar Sekarang
+        </a>
+        <a href="#profil" class="border-2 border-white text-white px-7 py-3.5 rounded-full font-bold text-lg hover:bg-white hover:text-blue-dark transition">
+          <i class="fas fa-circle-info mr-2"></i> Profil Sekolah
+        </a>
+      </div>
+
+      <div class="mt-8 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 max-w-md">
+        <p class="text-sm font-bold mb-2 text-gold"><i class="fas fa-gift mr-1"></i> Promo Spesial Gelombang 1!</p>
+        <p class="text-sm text-blue-50">Diskon <strong class="text-gold text-lg">50%</strong> untuk <strong>Uang Pangkal</strong> — Periode Oktober - Desember</p>
+      </div>
+    </div>
+
+    <div class="hidden lg:flex justify-center">
+      <div class="relative animate-float">
+        <img src="https://i.imgur.com/FT2H1oL.png" alt="Logo Al-Mughni" class="w-72 drop-shadow-2xl">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROFIL ========== -->
+<section id="profil" class="py-20 bg-white pattern-bg">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-primary font-bold text-lg"><i class="fas fa-school mr-2"></i>Profil Sekolah</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Yayasan Pendidikan Al-Mughni</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <img src="https://i.imgur.com/7YM4k8M.jpeg" alt="Gedung Al-Mughni" class="rounded-3xl shadow-2xl w-full object-cover h-[420px]">
+      </div>
+      <div>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          <strong>Yayasan Pendidikan Al-Mughni Kedung Gede</strong> adalah lembaga pendidikan Islam terpadu yang menaungi jenjang <strong>TK, SD, dan SMP</strong> di Tambun Selatan, Kabupaten Bekasi. Kami berkomitmen membentuk generasi Qur'ani yang beriman, bertaqwa, berkarakter, berprestasi, berwawasan global, serta berbudaya.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-6">
+          Didukung tenaga pendidik berpengalaman, lingkungan belajar yang nyaman, serta kurikulum lengkap, kami siap mengantarkan putra-putri Anda meraih masa depan terbaiknya.
+        </p>
+
+        <div class="flex items-start gap-3 p-4 bg-primary/5 rounded-2xl border-l-4 border-primary mb-4">
+          <i class="fas fa-location-dot text-primary text-2xl mt-1"></i>
+          <div>
+            <p class="font-bold text-sm">Alamat</p>
+            <p class="text-gray-600 text-sm">Jl. Manunggal Raya No. 19, Desa Setia Mekar, Tambun Selatan, Kab. Bekasi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VISI & MISI ========== -->
+<section class="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
+  <div class="container mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20">
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fas fa-eye text-gold text-3xl"></i>
+          <h2 class="text-2xl font-extrabold">VISI</h2>
+        </div>
+        <p class="text-lg leading-relaxed italic">
+          "Terbentuknya generasi yang <strong class="text-gold">beriman, bertaqwa, berkarakter, berprestasi, berwawasan global, serta berbudaya</strong>."
+        </p>
+      </div>
+
+      <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20">
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fas fa-bullseye text-gold text-3xl"></i>
+          <h2 class="text-2xl font-extrabold">MISI</h2>
+        </div>
+        <ol class="space-y-3 text-sm">
+          <li class="flex gap-3"><span class="bg-gold text-green-dark font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">1</span><span>Mengintegrasikan nilai-nilai keimanan dan ketaqwaan</span></li>
+          <li class="flex gap-3"><span class="bg-gold text-green-dark font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">2</span><span>Menerapkan pendidikan karakter berbasis keteladanan dan adab</span></li>
+          <li class="flex gap-3"><span class="bg-gold text-green-dark font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">3</span><span>Memfasilitasi dan membina bakat, minat, serta kreativitas setiap peserta didik</span></li>
+          <li class="flex gap-3"><span class="bg-gold text-green-dark font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">4</span><span>Meningkatkan kemampuan literasi digital</span></li>
+          <li class="flex gap-3"><span class="bg-gold text-green-dark font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">5</span><span>Menanamkan kecintaan terhadap budaya</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== JENJANG PENDIDIKAN ========== -->
+<section id="jenjang" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-primary font-bold text-lg"><i class="fas fa-graduation-cap mr-2"></i>Jenjang Pendidikan</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">3 Jenjang di Bawah Satu Yayasan</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- TK -->
+      <div class="bg-gradient-to-br from-pink-50 to-white rounded-3xl p-8 shadow-lg hover-up border-t-4 border-pink-400 text-center">
+        <img src="https://i.imgur.com/IbSfRGp.jpeg" alt="Logo TK" class="h-28 w-auto mx-auto mb-4">
+        <h3 class="text-2xl font-extrabold text-pink-600 mb-2">TK Islam</h3>
+        <p class="text-sm text-gray-500 mb-4">Taman Kanak-Kanak Islam Al-Mughni</p>
+        <ul class="text-sm text-gray-600 space-y-2 text-left mb-6">
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Usia 4-6 tahun</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Pembinaan adab & akhlak</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Calistung menyenangkan</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Hafalan juz 30</li>
+        </ul>
+        <a href="#ppdb" class="inline-block bg-pink-500 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-pink-600 transition">
+          Daftar TK <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+
+      <!-- SD -->
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 shadow-lg hover-up border-t-4 border-blue-500 text-center relative">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-green-dark text-xs font-bold px-3 py-1 rounded-full">POPULER</span>
+        <img src="https://i.imgur.com/8C5SQt4.png" alt="Logo SD" class="h-28 w-auto mx-auto mb-4">
+        <h3 class="text-2xl font-extrabold text-blue-700 mb-2">SD Islam</h3>
+        <p class="text-sm text-gray-500 mb-4">Sekolah Dasar Islam Al-Mughni</p>
+        <ul class="text-sm text-gray-600 space-y-2 text-left mb-6">
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Full day school</li>
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Tahfidz 3 juz</li>
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Lab komputer & IPA</li>
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Ekskul beragam</li>
+        </ul>
+        <a href="#ppdb" class="inline-block bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-700 transition">
+          Daftar SD <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+
+      <!-- SMP -->
+      <div class="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 shadow-lg hover-up border-t-4 border-green-500 text-center">
+        <img src="https://i.imgur.com/AYd0K8b.png" alt="Logo SMP" class="h-28 w-auto mx-auto mb-4">
+        <h3 class="text-2xl font-extrabold text-green-700 mb-2">SMP Islam</h3>
+        <p class="text-sm text-gray-500 mb-4">SMP YAPIA Al-Mughni</p>
+        <ul class="text-sm text-gray-600 space-y-2 text-left mb-6">
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Kelas 7-9</li>
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Tahfidz lanjutan</li>
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Leadership & sains</li>
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Persiapan SMA favorit</li>
+        </ul>
+        <a href="#ppdb" class="inline-block bg-green-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-green-700 transition">
+          Daftar SMP <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RINCIAN BIAYA ========== -->
+<section id="biaya" class="py-20 bg-gradient-to-br from-blue to-blue-dark text-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-gold font-bold text-lg"><i class="fas fa-tags mr-2"></i>Rincian Biaya</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2">Biaya Pendidikan 2027/2028</h2>
+      <p class="text-blue-100 mt-3 max-w-2xl mx-auto">Berikut rincian biaya pendaftaran untuk masing-masing jenjang.</p>
+    </div>
+
+    <div class="overflow-x-auto bg-white rounded-3xl shadow-2xl">
+      <table class="w-full text-slate-800">
+        <thead>
+          <tr class="bg-green text-white">
+            <th class="p-4 text-left font-bold">Komponen Biaya</th>
+            <th class="p-4 text-center font-bold">TK</th>
+            <th class="p-4 text-center font-bold">SD</th>
+            <th class="p-4 text-center font-bold">SMP</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm">
+          <tr class="border-b hover:bg-blue-50">
+            <td class="p-4 font-semibold">Formulir</td>
+            <td class="p-4 text-center">Rp 100.000</td>
+            <td class="p-4 text-center">Rp 150.000</td>
+            <td class="p-4 text-center">Rp 150.000</td>
+          </tr>
+          <tr class="border-b hover:bg-blue-50">
+            <td class="p-4 font-semibold">
+              Uang Pangkal
+              <span class="ml-1 bg-gold text-green-dark text-[10px] px-2 py-0.5 rounded-full font-bold">DISKON</span>
+            </td>
+            <td class="p-4 text-center font-bold text-green-dark">Rp 400.000</td>
+            <td class="p-4 text-center font-bold text-green-dark">Rp 1.000.000</td>
+            <td class="p-4 text-center font-bold text-green-dark">Rp 1.175.000</td>
+          </tr>
+          <tr class="border-b hover:bg-blue-50">
+            <td class="p-4 font-semibold">Seragam</td>
+            <td class="p-4 text-center">Rp 750.000</td>
+            <td class="p-4 text-center text-xs">
+              Rp 1.700.000 (L)<br>
+              Rp 1.800.000 (P)
+            </td>
+            <td class="p-4 text-center">Rp 1.220.000</td>
+          </tr>
+          <tr class="border-b hover:bg-blue-50">
+            <td class="p-4 font-semibold">SPP Juli</td>
+            <td class="p-4 text-center">Rp 200.000</td>
+            <td class="p-4 text-center">Rp 250.000</td>
+            <td class="p-4 text-center">Rp 250.000</td>
+          </tr>
+          <tr class="bg-green/10">
+            <td class="p-4 font-extrabold text-lg">TOTAL</td>
+            <td class="p-4 text-center font-extrabold text-lg text-green-dark">Rp 1.450.000</td>
+            <td class="p-4 text-center font-extrabold text-sm text-green-dark">
+              Rp 3.100.000 (L)<br>
+              Rp 3.200.000 (P)
+            </td>
+            <td class="p-4 text-center font-extrabold text-lg text-green-dark">Rp 2.795.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-center text-blue-100 text-sm mt-4">
+      <i class="fas fa-info-circle mr-1"></i> Belum termasuk SPP bulanan (Agustus - Juni)
+    </p>
+  </div>
+</section>
+
+<!-- ========== PROMO GELOMBANG ========== -->
+<section class="py-20 bg-cream">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-gold-dark font-bold text-lg"><i class="fas fa-gift mr-2"></i>Promo Spesial</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Diskon Uang Pangkal per Gelombang</h2>
+      <p class="text-gray-600 mt-3 max-w-2xl mx-auto">Semakin awal mendaftar, semakin besar diskonnya!</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Gelombang 1 -->
+      <div class="bg-gradient-to-br from-gold to-gold-dark rounded-3xl p-8 shadow-2xl hover-up relative overflow-hidden">
+        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl">TERBAIK!</span>
+        <i class="fas fa-crown text-white/30 text-6xl absolute top-4 right-4"></i>
+        <p class="text-green-dark font-bold text-sm mb-2">GELOMBANG 1</p>
+        <h3 class="text-5xl font-extrabold text-green-dark mb-2">50%</h3>
+        <p class="text-green-dark text-sm font-semibold mb-4">Diskon Uang Pangkal</p>
+        <div class="bg-white/30 backdrop-blur rounded-xl p-3 text-green-dark text-sm">
+          <i class="fas fa-calendar-days mr-2"></i><strong>Oktober - Desember</strong>
+        </div>
+      </div>
+
+      <!-- Gelombang 2 -->
+      <div class="bg-white rounded-3xl p-8 shadow-xl hover-up border-2 border-primary">
+        <i class="fas fa-star text-primary/10 text-6xl absolute top-4 right-4"></i>
+        <p class="text-primary font-bold text-sm mb-2">GELOMBANG 2</p>
+        <h3 class="text-5xl font-extrabold text-primary mb-2">30%</h3>
+        <p class="text-gray-600 text-sm font-semibold mb-4">Diskon Uang Pangkal</p>
+        <div class="bg-primary/10 rounded-xl p-3 text-primary text-sm">
+          <i class="fas fa-calendar-days mr-2"></i><strong>Januari - Maret</strong>
+        </div>
+      </div>
+
+      <!-- Gelombang 3 -->
+      <div class="bg-white rounded-3xl p-8 shadow-xl hover-up border-2 border-gray-300">
+        <i class="fas fa-medal text-gray-200 text-6xl absolute top-4 right-4"></i>
+        <p class="text-gray-600 font-bold text-sm mb-2">GELOMBANG 3</p>
+        <h3 class="text-5xl font-extrabold text-gray-700 mb-2">20%</h3>
+        <p class="text-gray-500 text-sm font-semibold mb-4">Diskon Uang Pangkal</p>
+        <div class="bg-gray-100 rounded-xl p-3 text-gray-600 text-sm">
+          <i class="fas fa-calendar-days mr-2"></i><strong>April - Juli</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EKSTRAKURIKULER ========== -->
+<section id="ekskul" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-primary font-bold text-lg"><i class="fas fa-futbol mr-2"></i>Kegiatan Siswa</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Ekstrakurikuler</h2>
+      <p class="text-gray-600 mt-3">Kembangkan bakat & minat putra-putri Anda melalui beragam kegiatan.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="bg-gradient-to-br from-green-100 to-green-50 p-6 rounded-2xl text-center hover-up">
+        <i class="fas fa-campground text-4xl text-green-600 mb-3"></i>
+        <p class="font-bold text-green-800 text-sm">Pramuka</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-100 to-blue-50 p-6 rounded-2xl text-center hover-up">
+        <i class="fas fa-futbol text-4xl text-blue-600 mb-3"></i>
+        <p class="font-bold text-blue-800 text-sm">Futsal</p>
+      </div>
+      <div class="bg-gradient-to-br from-red-100 to-red-50 p-6 rounded-2xl text-center hover-up">
+        <i class="fas fa-hand-fist text-4xl text-red-600 mb-3"></i>
+        <p class="font-bold text-red-800 text-sm">Bela Diri Silat</p>
+      </div>
+      <div class="bg-gradient-to-br from-pink-100 to-pink-50 p-6 rounded-2xl text-center hover-up">
+        <i class="fas fa-music text-4xl text-pink-600 mb-3"></i>
+        <p class="font-bold text-pink-800 text-sm">Tari</p>
+      </div>
+      <div class="bg-gradient-to-br from-amber-100 to-amber-50 p-6 rounded-2xl text-center hover-up">
+        <i class="fas fa-drum text-4xl text-amber-600 mb-3"></i>
+        <p class="font-bold text-amber-800 text-sm">Hadroh</p>
+      </div>
+    </div>
+
+    <!-- Galeri Kegiatan -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+      <img src="https://i.imgur.com/joHcCeo.jpeg" alt="Pramuka" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/RKwiLvq.jpeg" alt="Paskibra" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/qqTBKzH.jpeg" alt="TK Mewarnai" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/Q01e2oh.jpeg" alt="Kegiatan Sekolah" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ========== FASILITAS ========== -->
+<section id="fasilitas" class="py-20 bg-gradient-to-br from-primary/5 to-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-primary font-bold text-lg"><i class="fas fa-building mr-2"></i>Fasilitas</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Sarana & Prasarana</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-snowflake text-xl"></i></div>
+        <div><p class="font-bold">Ruang Kelas AC</p><p class="text-xs text-gray-500">Nyaman & sejuk</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-tree text-xl"></i></div>
+        <div><p class="font-bold">Indoor & Outdoor</p><p class="text-xs text-gray-500">Pembelajaran fleksibel</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-laptop-code text-xl"></i></div>
+        <div><p class="font-bold">Lab Komputer</p><p class="text-xs text-gray-500">Fasilitas lengkap</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-flask text-xl"></i></div>
+        <div><p class="font-bold">Lab IPA</p><p class="text-xs text-gray-500">Praktikum sains</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-language text-xl"></i></div>
+        <div><p class="font-bold">Lab Bahasa Inggris</p><p class="text-xs text-gray-500">Bilingual program</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-book text-xl"></i></div>
+        <div><p class="font-bold">Perpustakaan</p><p class="text-xs text-gray-500">Koleksi lengkap</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-leaf text-xl"></i></div>
+        <div><p class="font-bold">Lingkungan Nyaman</p><p class="text-xs text-gray-500">Asri & aman</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-chalkboard-user text-xl"></i></div>
+        <div><p class="font-bold">Guru Berpengalaman</p><p class="text-xs text-gray-500">Pendidik profesional</p></div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-book-open text-xl"></i></div>
+        <div><p class="font-bold">Kurikulum Lengkap</p><p class="text-xs text-gray-500">Nasional + diniyah</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PPDB FORM ========== -->
+<section id="ppdb" class="py-20 bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
+  <div class="absolute inset-0 pattern-bg opacity-20"></div>
+  <div class="container mx-auto px-6 relative">
+    <div class="text-center text-white mb-12">
+      <span class="bg-gold text-green-dark px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4">
+        <i class="fas fa-file-signature mr-1"></i> FORMULIR PPDB ONLINE
+      </span>
+      <h2 class="text-3xl md:text-5xl font-extrabold mt-2">Pendaftaran Peserta Didik Baru</h2>
+      <p class="text-lg text-primary-light mt-3 max-w-2xl mx-auto">Tahun Ajaran 2027/2028</p>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10 max-w-4xl mx-auto">
+      <form id="ppdbForm">
+        <!-- SECTION A: DATA PESERTA DIDIK -->
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
+            <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">A</div>
+            <h3 class="text-xl font-bold text-green-dark">Data Peserta Didik</h3>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label">Nama Lengkap <span class="text-red-500">*</span></label>
+              <input required name="nama_lengkap" type="text" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Nama Panggilan <span class="text-red-500">*</span></label>
+              <input required name="nama_panggilan" type="text" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Tempat Lahir <span class="text-red-500">*</span></label>
+              <input required name="tempat_lahir" type="text" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Tanggal Lahir <span class="text-red-500">*</span></label>
+              <input required name="tanggal_lahir" type="date" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Jenis Kelamin <span class="text-red-500">*</span></label>
+              <select required name="jenis_kelamin" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Agama <span class="text-red-500">*</span></label>
+              <select required name="agama" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>Islam</option>
+                <option>Kristen</option>
+                <option>Katolik</option>
+                <option>Hindu</option>
+                <option>Buddha</option>
+                <option>Konghucu</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">NIK (16 digit) <span class="text-red-500">*</span></label>
+              <input required name="nik" type="text" maxlength="16" pattern="[0-9]{16}" class="form-input" placeholder="16 digit angka">
+            </div>
+            <div>
+              <label class="form-label">NIS/NISN (jika ada)</label>
+              <input name="nisn" type="text" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Kewarganegaraan <span class="text-red-500">*</span></label>
+              <select required name="kewarganegaraan" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>WNI</option>
+                <option>WNA</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Anak Nomor ke <span class="text-red-500">*</span></label>
+              <input required name="anak_ke" type="number" min="1" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Berat Badan (kg)</label>
+              <input name="berat_badan" type="number" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">Tinggi Badan (cm)</label>
+              <input name="tinggi_badan" type="number" class="form-input">
+            </div>
+            <div class="md:col-span-2">
+              <label class="form-label">Alamat Rumah <span class="text-red-500">*</span></label>
+              <textarea required name="alamat" rows="2" class="form-input"></textarea>
+            </div>
+            <div>
+              <label class="form-label">Nomor HP <span class="text-red-500">*</span></label>
+              <input required name="hp" type="tel" class="form-input" placeholder="08xxxxxxxxxx">
+            </div>
+            <div>
+              <label class="form-label">Jenis Tinggal <span class="text-red-500">*</span></label>
+              <select required name="jenis_tinggal" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>Bersama Orang Tua</option>
+                <option>Wali</option>
+                <option>Asrama/Panti Asuhan</option>
+                <option>Lainnya</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION B: DATA ORANG TUA / WALI -->
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
+            <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">B</div>
+            <h3 class="text-xl font-bold text-green-dark">Data Orang Tua / Wali</h3>
+          </div>
+
+          <!-- Data Ayah -->
+          <h4 class="font-bold text-primary mb-3 mt-4"><i class="fas fa-male mr-2"></i>Data Ayah</h4>
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div><label class="form-label">Nama</label><input name="nama_ayah" type="text" class="form-input"></div>
+            <div><label class="form-label">NIK</label><input name="nik_ayah" type="text" maxlength="16" class="form-input"></div>
+            <div><label class="form-label">Pekerjaan</label><input name="pekerjaan_ayah" type="text" class="form-input"></div>
+            <div><label class="form-label">Usia</label><input name="usia_ayah" type="number" class="form-input"></div>
+            <div><label class="form-label">Pendidikan Terakhir</label>
+              <select name="pendidikan_ayah" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>SD</option><option>SMP</option><option>SMA/SMK</option>
+                <option>D3</option><option>S1</option><option>S2</option><option>S3</option>
+              </select>
+            </div>
+            <div><label class="form-label">Penghasilan</label>
+              <select name="penghasilan_ayah" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>&lt; Rp 1.000.000</option>
+                <option>Rp 1.000.000 - 2.500.000</option>
+                <option>Rp 2.500.000 - 5.000.000</option>
+                <option>Rp 5.000.000 - 10.000.000</option>
+                <option>&gt; Rp 10.000.000</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Data Ibu -->
+          <h4 class="font-bold text-primary mb-3"><i class="fas fa-female mr-2"></i>Data Ibu</h4>
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div><label class="form-label">Nama</label><input name="nama_ibu" type="text" class="form-input"></div>
+            <div><label class="form-label">NIK</label><input name="nik_ibu" type="text" maxlength="16" class="form-input"></div>
+            <div><label class="form-label">Pekerjaan</label><input name="pekerjaan_ibu" type="text" class="form-input"></div>
+            <div><label class="form-label">Usia</label><input name="usia_ibu" type="number" class="form-input"></div>
+            <div><label class="form-label">Pendidikan Terakhir</label>
+              <select name="pendidikan_ibu" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>SD</option><option>SMP</option><option>SMA/SMK</option>
+                <option>D3</option><option>S1</option><option>S2</option><option>S3</option>
+              </select>
+            </div>
+            <div><label class="form-label">Penghasilan</label>
+              <select name="penghasilan_ibu" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>&lt; Rp 1.000.000</option>
+                <option>Rp 1.000.000 - 2.500.000</option>
+                <option>Rp 2.500.000 - 5.000.000</option>
+                <option>Rp 5.000.000 - 10.000.000</option>
+                <option>&gt; Rp 10.000.000</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Data Wali -->
+          <h4 class="font-bold text-primary mb-3"><i class="fas fa-user-friends mr-2"></i>Data Wali <span class="text-gray-400 font-normal text-xs">(Opsional)</span></h4>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div><label class="form-label">Nama Wali</label><input name="nama_wali" type="text" class="form-input"></div>
+            <div><label class="form-label">NIK Wali</label><input name="nik_wali" type="text" maxlength="16" class="form-input"></div>
+            <div><label class="form-label">Pekerjaan Wali</label><input name="pekerjaan_wali" type="text" class="form-input"></div>
+            <div><label class="form-label">Usia Wali</label><input name="usia_wali" type="number" class="form-input"></div>
+            <div><label class="form-label">Pendidikan Wali</label>
+              <select name="pendidikan_wali" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>SD</option><option>SMP</option><option>SMA/SMK</option>
+                <option>D3</option><option>S1</option><option>S2</option><option>S3</option>
+              </select>
+            </div>
+            <div><label class="form-label">Penghasilan Wali</label>
+              <select name="penghasilan_wali" class="form-input">
+                <option value="">-- Pilih --</option>
+                <option>&lt; Rp 1.000.000</option>
+                <option>Rp 1.000.000 - 2.500.000</option>
+                <option>Rp 2.500.000 - 5.000.000</option>
+                <option>Rp 5.000.000 - 10.000.000</option>
+                <option>&gt; Rp 10.000.000</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION C: DATA ASAL SEKOLAH -->
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
+            <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">C</div>
+            <h3 class="text-xl font-bold text-green-dark">Data Asal Sekolah</h3>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="md:col-span-2">
+              <label class="form-label">Jenjang yang Dituju <span class="text-red-500">*</span></label>
+              <select required name="jenjang" class="form-input font-bold text-primary">
+                <option value="">-- Pilih Jenjang --</option>
+                <option>TK Islam Al-Mughni</option>
+                <option>SD Islam Al-Mughni</option>
+                <option>SMP YAPIA Al-Mughni</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Nama Sekolah Asal <span class="text-red-500">*</span></label>
+              <input required name="asal_sekolah" type="text" class="form-input">
+            </div>
+            <div>
+              <label class="form-label">NSS/NPSN Sekolah</label>
+              <input name="npsn" type="text" class="form-input">
+            </div>
+            <div class="md:col-span-2">
+              <label class="form-label">Alamat Sekolah <span class="text-red-500">*</span></label>
+              <textarea required name="alamat_sekolah" rows="2" class="form-input"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- KONFIRMASI -->
+        <div class="bg-primary/5 rounded-2xl p-4 mb-6">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" required class="mt-1 w-5 h-5 accent-primary">
+            <span class="text-sm text-gray-700">Saya menyatakan bahwa data yang saya isi adalah <strong>benar</strong> dan dapat dipertanggungjawabkan.</span>
+          </label>
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary-dark transition shadow-xl">
+          <i class="fas fa-paper-plane mr-2"></i> Kirim Pendaftaran
+        </button>
+        <p id="statusMsg" class="text-center text-sm mt-3"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ========== KONTAK ========== -->
+<section id="kontak" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <span class="text-primary font-bold text-lg"><i class="fas fa-headset mr-2"></i>Hubungi Kami</span>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Nara Hubung PPDB</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <a href="https://wa.me/628951158675" target="_blank" class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-2xl shadow-xl hover-up text-center">
+        <i class="fab fa-whatsapp text-5xl mb-3"></i>
+        <p class="font-bold text-lg">Ibu Endang</p>
+        <p class="text-sm text-green-100">0895-1158-675</p>
+        <p class="text-xs mt-2 bg-white/20 rounded-full px-3 py-1 inline-block">Kontak Utama</p>
+      </a>
+      <a href="https://wa.me/6289539343456" target="_blank" class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-2xl shadow-xl hover-up text-center">
+        <i class="fab fa-whatsapp text-5xl mb-3"></i>
+        <p class="font-bold text-lg">Ibu Indi</p>
+        <p class="text-sm text-blue-100">0895-3934-3456</p>
+      </a>
+      <a href="https://wa.me/6283896919777" target="_blank" class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-2xl shadow-xl hover-up text-center">
+        <i class="fab fa-whatsapp text-5xl mb-3"></i>
+        <p class="font-bold text-lg">Bapak Yayat</p>
+        <p class="text-sm text-purple-100">0838-9691-9777</p>
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-primary/5 p-6 rounded-2xl flex items-start gap-4">
+        <i class="fas fa-location-dot text-primary text-3xl mt-1"></i>
+        <div>
+          <p class="font-bold text-green-dark mb-1">Alamat Sekolah</p>
+          <p class="text-gray-600 text-sm">Jl. Manunggal Raya No. 19, Desa Setia Mekar,<br>Tambun Selatan, Kab. Bekasi</p>
+        </div>
+      </div>
+      <a href="https://instagram.com/almughni.bekasi" target="_blank" class="bg-gradient-to-br from-pink-500 to-purple-500 text-white p-6 rounded-2xl flex items-start gap-4 hover-up">
+        <i class="fab fa-instagram text-3xl mt-1"></i>
+        <div>
+          <p class="font-bold mb-1">Instagram</p>
+          <p class="text-sm">@almughni.bekasi</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-green-dark text-gray-300 pt-16 pb-6">
+  <div class="container mx-auto px-6 grid md:grid-cols-4 gap-8 mb-10">
+    <div class="md:col-span-2">
+      <div class="flex items-center gap-3 mb-4">
+        <img src="https://i.imgur.com/FT2H1oL.png" alt="Logo" class="h-14 w-auto bg-white rounded-xl p-1">
+        <div>
+          <p class="font-bold text-white text-lg">Yayasan Pendidikan</p>
+          <p class="font-extrabold text-gold text-xl">Al-Mughni</p>
+        </div>
+      </div>
+      <p class="text-sm mb-3">Kedung Gede, Tambun Selatan, Kabupaten Bekasi</p>
+      <p class="text-xs italic text-gray-400">"Membentuk generasi beriman, bertaqwa, berkarakter, berprestasi, berwawasan global, serta berbudaya."</p>
+    </div>
+    <div>
+      <h4 class="text-white font-bold mb-4"><i class="fas fa-compass text-gold mr-2"></i>Navigasi</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#profil" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Profil</a></li>
+        <li><a href="#jenjang" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Jenjang</a></li>
+        <li><a href="#biaya" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Biaya</a></li>
+        <li><a href="#ekskul" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Ekstrakurikuler</a></li>
+        <li><a href="#ppdb" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>PPDB Online</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-bold mb-4"><i class="fas fa-headset text-gold mr-2"></i>Kontak</h4>
+      <ul class="space-y-2 text-sm">
+        <li><i class="fas fa-location-dot mr-2 text-gold"></i>Jl. Manunggal Raya No. 19</li>
+        <li><i class="fab fa-whatsapp mr-2 text-gold"></i>0895-1158-675 (Ibu Endang)</li>
+        <li><i class="fab fa-whatsapp mr-2 text-gold"></i>0895-3934-3456 (Ibu Indi)</li>
+        <li><i class="fab fa-whatsapp mr-2 text-gold"></i>0838-9691-9777 (Bapak Yayat)</li>
+        <li><i class="fab fa-instagram mr-2 text-gold"></i>@almughni.bekasi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10 pt-6 container mx-auto px-6 text-center text-sm">
+    <p class="mb-2">© <span id="year"></span> <strong class="text-white">Yayasan Pendidikan Al-Mughni Kedung Gede Bekasi</strong>. All Rights Reserved.</p>
+    <p class="text-xs text-gray-400">
+      <i class="fas fa-code text-gold mr-1"></i>
+      Developed by <a href="#" class="text-gold hover:underline font-semibold">Adjarindo Creative Aksara</a> © 2026
+    </p>
+  </div>
+</footer>
+
+<!-- ========== FLOATING WA ========== -->
+<a href="https://wa.me/628951158675?text=Assalamu'alaikum%2C%20saya%20ingin%20bertanya%20tentang%20PPDB%20Al-Mughni%202027%2F2028" target="_blank"
+   class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 z-30 text-3xl animate-bounce" title="Chat Ibu Endang">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// Config
+const APPS_SCRIPT_URL = localStorage.getItem('sit_apps_script_url') || '';
+const LOCAL_PPDB_KEY = 'sit_ppdb_data';
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mobile Menu
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+document.querySelectorAll('#mobileMenu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobileMenu').classList.add('hidden'));
+});
+
+// Form Submit
+document.getElementById('ppdbForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('statusMsg');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengirim...';
+  status.textContent = '';
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  data.timestamp = new Date().toISOString();
+  data.reg_number = generateRegNumber();
+
+  // Simpan lokal
+  const list = JSON.parse(localStorage.getItem(LOCAL_PPDB_KEY) || '[]');
+  list.unshift({ ...data, id: Date.now() });
+  localStorage.setItem(LOCAL_PPDB_KEY, JSON.stringify(list));
+
+  // Kirim ke Apps Script
+  let sentToSheet = false;
+  if (APPS_SCRIPT_URL) {
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      });
+      sentToSheet = true;
+    } catch (err) { console.warn(err); }
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Kirim Pendaftaran';
+
+  status.className = 'text-center text-sm mt-3 text-green-600 font-semibold';
+  status.innerHTML = `<i class="fas fa-check-circle"></i> Berhasil! No. Pendaftaran: <b>${data.reg_number}</b>`;
+
+  // WA konfirmasi
+  const waMsg = encodeURIComponent(
+    `Assalamu'alaikum, saya ${data.nama_lengkap} telah mendaftar PPDB Al-Mughni 2027/2028.\n\n` +
+    `No. Pendaftaran: ${data.reg_number}\n` +
+    `Jenjang: ${data.jenjang}\n` +
+    `Nama: ${data.nama_lengkap}\n\n` +
+    `Mohon konfirmasinya. Terima kasih.`
+  );
+  setTimeout(() => {
+    window.open(`https://wa.me/628951158675?text=${waMsg}`, '_blank');
+  }, 1000);
+
+  e.target.reset();
+});
+
+function generateRegNumber() {
+  const list = JSON.parse(localStorage.getItem(LOCAL_PPDB_KEY) || '[]');
+  const year = new Date().getFullYear();
+  return `AM-${year}-${String(list.length + 1).padStart(4, '0')}`;
+}
+</script>
+
+</body>
+</html>

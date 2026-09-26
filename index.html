@@ -439,7 +439,6 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- Galeri Kegiatan -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
       <img src="https://i.imgur.com/joHcCeo.jpeg" alt="Pramuka" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
       <img src="https://i.imgur.com/RKwiLvq.jpeg" alt="Paskibra" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
@@ -536,7 +535,6 @@ tailwind.config = {
 
     <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10 max-w-4xl mx-auto">
       <form id="SPMBForm">
-        <!-- SECTION A -->
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
             <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">A</div>
@@ -628,7 +626,6 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- SECTION B -->
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
             <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">B</div>
@@ -708,7 +705,6 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- SECTION C -->
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
             <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">C</div>
@@ -850,7 +846,7 @@ tailwind.config = {
 </footer>
 
 <!-- ========== FLOATING WA ========== -->
-<a id="floatWA" href="https://wa.me/628951158675?text=Assalamu'alaikum%2C%20saya%20ingin%20bertanya%20tentang%20SPMB%20Al-Mughni" target="_blank"
+<a id="floatWA" href="https://wa.me/628951158675" target="_blank"
    class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 z-30 text-3xl animate-bounce" title="Chat via WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
@@ -858,7 +854,6 @@ tailwind.config = {
 <!-- ========== ADMIN MODAL ========== -->
 <div id="adminPanel" class="popup-overlay fixed inset-0 bg-slate-900/95 z-50 justify-center items-start overflow-y-auto p-4">
   <div class="bg-white rounded-2xl max-w-6xl w-full my-8 overflow-hidden">
-    <!-- Header -->
     <div class="bg-gradient-to-r from-primary to-primary-dark text-white p-5 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <i class="fas fa-user-shield text-2xl text-gold"></i>
@@ -906,7 +901,7 @@ tailwind.config = {
               <option>SMP YAPIA Al-Mughni</option>
             </select>
             <button onclick="exportExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700"><i class="fas fa-file-excel mr-1"></i>Download Excel</button>
-            <button onclick="renderData()" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-dark"><i class="fas fa-sync mr-1"></i>Refresh</button>
+            <button onclick="fetchDataFromSheet()" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-dark"><i class="fas fa-sync mr-1"></i>Refresh</button>
           </div>
         </div>
 
@@ -938,7 +933,7 @@ tailwind.config = {
    ========================================================= */
 const SITE_CONFIG = {
   // ⚠️ GANTI dengan URL Worker Cloudflare Anda setelah deploy
-  WORKER_URL: 'https://ppdb-almughni.sigmaedu20.workers.dev',
+  WORKER_URL: 'https://ppdb-almughni.USERNAME.workers.dev',
   
   // Nomor WA untuk floating button & konfirmasi
   WA_NUMBER: '628951158675',
@@ -946,26 +941,21 @@ const SITE_CONFIG = {
   // Tahun ajaran yang ditampilkan
   TAHUN_AJARAN: '2027/2028',
   
-  // Password admin (jangan disebar ke publik)
-  ADMIN_PASSWORD: 'almughni123'
+  // Password admin
+  ADMIN_PASSWORD: 'almughni123',
+  
+  // ⚠️ TOKEN HARUS SAMA dengan ADMIN_TOKEN di Apps Script
+  ADMIN_TOKEN: 'AlMughni2027SecretXyZ'
 };
 
-/* =========================================================
-   DATA LOKAL (per browser - untuk backup)
-   ========================================================= */
 const LOCAL_DATA_KEY = 'sit_spmb_data';
 
-/* =========================================================
-   INIT
-   ========================================================= */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Apply tahun ajaran ke semua elemen dengan class .tahunAjaran
 document.querySelectorAll('.tahunAjaran').forEach(el => {
   el.textContent = SITE_CONFIG.TAHUN_AJARAN;
 });
 
-// Apply WA floating
 const waMsgText = encodeURIComponent(`Assalamu'alaikum, saya ingin bertanya tentang SPMB Al-Mughni ${SITE_CONFIG.TAHUN_AJARAN}`);
 document.getElementById('floatWA').href = `https://wa.me/${SITE_CONFIG.WA_NUMBER}?text=${waMsgText}`;
 
@@ -980,7 +970,7 @@ document.querySelectorAll('#mobileMenu a').forEach(a => {
 });
 
 /* =========================================================
-   FORM SUBMIT — KIRIM KE WORKER → APPS SCRIPT
+   FORM SUBMIT
    ========================================================= */
 document.getElementById('SPMBForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -996,12 +986,11 @@ document.getElementById('SPMBForm').addEventListener('submit', async (e) => {
   data.tahun_ajaran = SITE_CONFIG.TAHUN_AJARAN;
   data.reg_number = generateRegNumber();
 
-  // Simpan lokal (backup di browser user)
+  // Simpan lokal (backup)
   const list = JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || '[]');
   list.unshift({ ...data, id: Date.now() });
   localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(list));
 
-  // Kirim ke Worker (HARDCODE URL)
   let sentToSheet = false;
   const workerReady = SITE_CONFIG.WORKER_URL && !SITE_CONFIG.WORKER_URL.includes('USERNAME');
   
@@ -1017,8 +1006,6 @@ document.getElementById('SPMBForm').addEventListener('submit', async (e) => {
     } catch (err) { 
       console.warn('Worker error:', err); 
     }
-  } else {
-    console.warn('Worker URL belum dikonfigurasi. Data hanya tersimpan lokal.');
   }
 
   btn.disabled = false;
@@ -1032,7 +1019,6 @@ document.getElementById('SPMBForm').addEventListener('submit', async (e) => {
     status.innerHTML = `<i class="fas fa-info-circle"></i> Data tersimpan lokal. No. Pendaftaran: <b>${data.reg_number}</b>`;
   }
 
-  // WA konfirmasi
   const waMsg = encodeURIComponent(
     `Assalamu'alaikum, saya ${data.nama_lengkap} telah mendaftar SPMB Al-Mughni ${data.tahun_ajaran}.\n\n` +
     `No. Pendaftaran: ${data.reg_number}\n` +
@@ -1089,62 +1075,145 @@ function logoutAdmin() {
 function showDashboard() {
   document.getElementById('adminLogin').classList.add('hidden');
   document.getElementById('adminDashboard').classList.remove('hidden');
-  renderData();
+  fetchDataFromSheet();
 }
 
 /* =========================================================
-   DATA RENDERING
+   DATA DARI SHEETS (via Worker)
    ========================================================= */
-function getData() { return JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || '[]'); }
+let cachedData = [];
+let isLoading = false;
 
-function renderData() {
-  const filter = document.getElementById('filterJenjang').value;
-  let list = getData();
-  if (filter) list = list.filter(d => d.jenjang === filter);
+async function fetchDataFromSheet() {
+  if (isLoading) return;
+  isLoading = true;
   
   const tbody = document.getElementById('dataTable');
   const empty = document.getElementById('emptyMsg');
-  document.getElementById('totalCount').textContent = list.length;
-
-  if (!list.length) { tbody.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  
+  tbody.innerHTML = `
+    <tr><td colspan="6" class="p-8 text-center text-gray-500">
+      <i class="fas fa-spinner fa-spin text-2xl text-primary mb-2"></i>
+      <p>Mengambil data dari server...</p>
+    </td></tr>
+  `;
   empty.classList.add('hidden');
+  
+  try {
+    const url = `${SITE_CONFIG.WORKER_URL}?token=${encodeURIComponent(SITE_CONFIG.ADMIN_TOKEN)}`;
+    const res = await fetch(url, { method: 'GET' });
+    const result = await res.json();
+    
+    if (result.status === 'ok' && Array.isArray(result.data)) {
+      cachedData = result.data.reverse();
+      renderData();
+    } else {
+      throw new Error(result.message || 'Gagal mengambil data');
+    }
+  } catch (err) {
+    console.error('Fetch error:', err);
+    tbody.innerHTML = `
+      <tr><td colspan="6" class="p-8 text-center text-red-500">
+        <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+        <p class="font-semibold">Gagal mengambil data</p>
+        <p class="text-xs mt-1">${err.message}</p>
+        <button onclick="fetchDataFromSheet()" class="mt-3 bg-primary text-white px-4 py-2 rounded-lg text-sm">
+          <i class="fas fa-sync mr-1"></i>Coba Lagi
+        </button>
+      </td></tr>
+    `;
+  } finally {
+    isLoading = false;
+  }
+}
 
-  tbody.innerHTML = list.map((d, i) => `
-    <tr class="border-b hover:bg-gray-50">
-      <td class="p-3 font-mono text-xs font-bold text-primary">${d.reg_number || '-'}</td>
-      <td class="p-3 text-xs">${new Date(d.timestamp).toLocaleDateString('id-ID')}</td>
-      <td class="p-3 font-semibold text-sm">${d.nama_lengkap || '-'}</td>
-      <td class="p-3 text-xs">${d.jenjang || '-'}</td>
-      <td class="p-3 text-xs">
-        <a href="https://wa.me/${(d.hp_ortu||d.hp||'').replace(/^0/, '62')}" target="_blank" class="text-green-600 hover:underline">
-          <i class="fab fa-whatsapp"></i> ${d.hp_ortu || d.hp || '-'}
-        </a>
-      </td>
-      <td class="p-3">
-        <button onclick="viewDetail(${i})" class="text-primary hover:text-primary-dark text-xs" title="Lihat Detail"><i class="fas fa-eye"></i></button>
-      </td>
-    </tr>
-  `).join('');
+function renderData() {
+  const filter = document.getElementById('filterJenjang').value;
+  let list = cachedData;
+  if (filter) list = list.filter(d => d['Jenjang'] === filter);
+  
+  const tbody = document.getElementById('dataTable');
+  const empty = document.getElementById('emptyMsg');
+  document.getElementById('totalCount').textContent = cachedData.length;
+  
+  if (!list.length) {
+    tbody.innerHTML = '';
+    empty.classList.remove('hidden');
+    empty.textContent = cachedData.length === 0 
+      ? 'Belum ada data pendaftar.' 
+      : 'Tidak ada data untuk filter ini.';
+    return;
+  }
+  empty.classList.add('hidden');
+  
+  tbody.innerHTML = list.map((d, i) => {
+    const noDaftar = d['No. Pendaftaran'] || '-';
+    const tanggal = d['Timestamp'] ? new Date(d['Timestamp']).toLocaleDateString('id-ID') : '-';
+    const nama = d['Nama Lengkap'] || '-';
+    const jenjang = d['Jenjang'] || '-';
+    const wa = d['No Telepon Orang Tua'] || d['No HP Siswa'] || '-';
+    const waClean = String(wa).replace(/^0/, '62');
+    
+    return `
+      <tr class="border-b hover:bg-gray-50">
+        <td class="p-3 font-mono text-xs font-bold text-primary">${noDaftar}</td>
+        <td class="p-3 text-xs">${tanggal}</td>
+        <td class="p-3 font-semibold text-sm">${nama}</td>
+        <td class="p-3 text-xs">${jenjang}</td>
+        <td class="p-3 text-xs">
+          ${wa !== '-' 
+            ? `<a href="https://wa.me/${waClean}" target="_blank" class="text-green-600 hover:underline">
+                <i class="fab fa-whatsapp"></i> ${wa}
+              </a>` 
+            : '-'}
+        </td>
+        <td class="p-3">
+          <button onclick="viewDetail(${i})" class="text-primary hover:text-primary-dark text-xs" title="Lihat Detail">
+            <i class="fas fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function viewDetail(index) {
-  const d = getData()[index];
+  const filter = document.getElementById('filterJenjang').value;
+  let list = cachedData;
+  if (filter) list = list.filter(d => d['Jenjang'] === filter);
+  
+  const d = list[index];
   if (!d) return;
-  const html = Object.entries(d).map(([k, v]) =>
-    `<div class="py-1 border-b border-gray-100"><span class="font-semibold text-xs text-gray-500 inline-block w-44">${k.replace(/_/g, ' ')}</span><span class="text-sm">${v || '-'}</span></div>`
-  ).join('');
+  
+  const regNum = d['No. Pendaftaran'] || '-';
+  const html = Object.entries(d).map(([k, v]) => {
+    let displayVal = v;
+    if (!v) displayVal = '-';
+    return `<div class="py-1.5 border-b border-gray-100 flex gap-3">
+      <span class="font-semibold text-xs text-gray-500 inline-block w-44 flex-shrink-0">${k}</span>
+      <span class="text-sm flex-1">${displayVal}</span>
+    </div>`;
+  }).join('');
+  
   const w = window.open('', '_blank');
   w.document.write(`
-    <html><head><title>Detail Pendaftar - ${d.nama_lengkap}</title>
+    <html><head><title>Detail Pendaftar - ${d['Nama Lengkap']}</title>
     <script src="https://cdn.tailwindcss.com"><\/script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>body{font-family:Poppins,sans-serif}</style>
     </head><body class="bg-gray-50 p-6">
-      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow p-6">
-        <h1 class="text-2xl font-bold text-green-700 mb-4">Detail Pendaftar</h1>
-        <p class="text-sm text-gray-500 mb-6">No. Pendaftaran: <b class="text-teal-600">${d.reg_number}</b></p>
+      <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow p-6">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h1 class="text-2xl font-bold text-green-700">Detail Pendaftar</h1>
+            <p class="text-sm text-gray-500 mt-1">No. Pendaftaran: <b class="text-teal-600">${regNum}</b></p>
+          </div>
+          <button onclick="window.print()" class="bg-teal-600 text-white px-4 py-2 rounded-lg font-bold text-sm">
+            <i class="fas fa-print mr-1"></i>Print
+          </button>
+        </div>
         ${html}
-        <button onclick="window.print()" class="mt-6 bg-teal-600 text-white px-6 py-2 rounded-lg font-bold">Print</button>
       </div>
     </body></html>
   `);
@@ -1154,65 +1223,28 @@ function viewDetail(index) {
    EXPORT EXCEL
    ========================================================= */
 function exportExcel() {
-  const list = getData();
-  if (!list.length) { alert('Belum ada data untuk diunduh.'); return; }
+  const list = cachedData;
+  if (!list.length) { 
+    alert('Belum ada data untuk diunduh. Klik Refresh dulu.'); 
+    return; 
+  }
 
-  const rows = list.map(d => ({
-    'No. Pendaftaran': d.reg_number || '',
-    'Tanggal Daftar': d.timestamp,
-    'Tahun Ajaran': d.tahun_ajaran || '',
-    'Jenjang': d.jenjang || '',
-    'Nama Lengkap': d.nama_lengkap || '',
-    'Nama Panggilan': d.nama_panggilan || '',
-    'Tempat Lahir': d.tempat_lahir || '',
-    'Tanggal Lahir': d.tanggal_lahir || '',
-    'Jenis Kelamin': d.jenis_kelamin || '',
-    'Agama': d.agama || '',
-    'NIK': d.nik || '',
-    'NIS/NISN': d.nisn || '',
-    'Kewarganegaraan': d.kewarganegaraan || '',
-    'Anak ke': d.anak_ke || '',
-    'Berat Badan': d.berat_badan || '',
-    'Tinggi Badan': d.tinggi_badan || '',
-    'Alamat': d.alamat || '',
-    'No HP Siswa': d.hp || '',
-    'No Telepon Orang Tua': d.hp_ortu || '',
-    'Jenis Tinggal': d.jenis_tinggal || '',
-    'Nama Ayah': d.nama_ayah || '',
-    'NIK Ayah': d.nik_ayah || '',
-    'Pekerjaan Ayah': d.pekerjaan_ayah || '',
-    'Usia Ayah': d.usia_ayah || '',
-    'Pendidikan Ayah': d.pendidikan_ayah || '',
-    'Penghasilan Ayah': d.penghasilan_ayah || '',
-    'Nama Ibu': d.nama_ibu || '',
-    'NIK Ibu': d.nik_ibu || '',
-    'Pekerjaan Ibu': d.pekerjaan_ibu || '',
-    'Usia Ibu': d.usia_ibu || '',
-    'Pendidikan Ibu': d.pendidikan_ibu || '',
-    'Penghasilan Ibu': d.penghasilan_ibu || '',
-    'Nama Wali': d.nama_wali || '',
-    'NIK Wali': d.nik_wali || '',
-    'Pekerjaan Wali': d.pekerjaan_wali || '',
-    'Usia Wali': d.usia_wali || '',
-    'Pendidikan Wali': d.pendidikan_wali || '',
-    'Penghasilan Wali': d.penghasilan_wali || '',
-    'Asal Sekolah': d.asal_sekolah || '',
-    'NPSN Sekolah': d.npsn || '',
-    'Alamat Sekolah': d.alamat_sekolah || ''
-  }));
+  const headers = Object.keys(list[0]);
+  
+  const rows = list.map(d => {
+    const obj = {};
+    headers.forEach(h => {
+      obj[h] = d[h] || '';
+    });
+    return obj;
+  });
 
-  const ws = XLSX.utils.json_to_sheet(rows);
-  ws['!cols'] = Object.keys(rows[0]).map(() => ({ wch: 20 }));
+  const ws = XLSX.utils.json_to_sheet(rows, { header: headers });
+  ws['!cols'] = headers.map(() => ({ wch: 20 }));
+  
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'SPMB');
   XLSX.writeFile(wb, `SPMB-AlMughni-${new Date().toISOString().slice(0,10)}.xlsx`);
-}
-
-/* =========================================================
-   INIT LOGIN CHECK
-   ========================================================= */
-if (sessionStorage.getItem('sit_admin_logged') === '1') {
-  // Admin sudah login (dari sesi sebelumnya) — tidak perlu aksi
 }
 </script>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TK, SD, SMP Al-Mughni Kedung Gede - PPDB 2027/2028</title>
+<title>TK, SD, SMP Al-Mughni Kedung Gede - SPMB 2027/2028</title>
 <meta name="description" content="Penerimaan Peserta Didik Baru TK, SD, SMP Al-Mughni Kedung Gede, Tambun Selatan, Bekasi. Tahun Ajaran 2027/2028. Diskon uang pangkal hingga 50%!">
 <link rel="icon" type="image/png" href="https://i.imgur.com/FT2H1oL.png">
 
@@ -17,20 +17,13 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary: '#17BEBB',
-        'primary-dark': '#0E8A87',
-        blue: '#4A9FE0',
-        'blue-dark': '#2E7BC4',
-        gold: '#F5C542',
-        'gold-dark': '#D4A017',
-        green: '#4CAF50',
-        'green-dark': '#1B5E20',
+        primary: '#17BEBB', 'primary-dark': '#0E8A87',
+        blue: '#4A9FE0', 'blue-dark': '#2E7BC4',
+        gold: '#F5C542', 'gold-dark': '#D4A017',
+        green: '#4CAF50', 'green-dark': '#1B5E20',
         cream: '#F8F9FA'
       },
-      fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-        amiri: ['Amiri', 'serif']
-      }
+      fontFamily: { poppins: ['Poppins', 'sans-serif'], amiri: ['Amiri', 'serif'] }
     }
   }
 }
@@ -48,8 +41,6 @@ tailwind.config = {
   .pattern-bg {
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2317BEBB' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
-  .step-active { background: #17BEBB; color: white; }
-  .step-inactive { background: #E5E7EB; color: #6B7280; }
   .form-label { font-size: 0.8rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem; display: block; }
   .form-input { width: 100%; border: 1px solid #D1D5DB; border-radius: 0.75rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; outline: none; transition: .2s; }
   .form-input:focus { border-color: #17BEBB; box-shadow: 0 0 0 3px rgba(23,190,187,0.15); }
@@ -62,14 +53,14 @@ tailwind.config = {
 
 <body class="bg-cream text-slate-800">
 
-<!-- ========== TOP MARQUEE PPDB ========== -->
+<!-- ========== TOP MARQUEE SPMB ========== -->
 <div class="bg-gold text-green-dark py-2 overflow-hidden whitespace-nowrap text-sm font-bold">
   <div class="inline-block marquee">
-    <span class="mx-8">🎉 PPDB 2027/2028 DIBUKA!</span>
+    <span class="mx-8">🎉 SPMB <span class="tahunAjaran">2027/2028</span> DIBUKA!</span>
     <span class="mx-8">💰 Diskon Uang Pangkal hingga 50% untuk Gelombang 1</span>
     <span class="mx-8">📞 Info: Ibu Endang 0895-1158-675</span>
     <span class="mx-8">🏫 TK, SD, SMP Al-Mughni Kedung Gede - Tambun Selatan, Bekasi</span>
-    <span class="mx-8">🎉 PPDB 2027/2028 DIBUKA!</span>
+    <span class="mx-8">🎉 SPMB <span class="tahunAjaran">2027/2028</span> DIBUKA!</span>
     <span class="mx-8">💰 Diskon Uang Pangkal hingga 50% untuk Gelombang 1</span>
     <span class="mx-8">📞 Info: Ibu Endang 0895-1158-675</span>
     <span class="mx-8">🏫 TK, SD, SMP Al-Mughni Kedung Gede - Tambun Selatan, Bekasi</span>
@@ -93,10 +84,12 @@ tailwind.config = {
       <a href="#jenjang" class="hover:text-primary transition"><i class="fas fa-graduation-cap mr-1"></i>Jenjang</a>
       <a href="#biaya" class="hover:text-primary transition"><i class="fas fa-tags mr-1"></i>Biaya</a>
       <a href="#ekskul" class="hover:text-primary transition"><i class="fas fa-futbol mr-1"></i>Ekskul</a>
-      <a href="#ppdb" class="bg-primary text-white px-5 py-2 rounded-full font-bold hover:bg-primary-dark transition shadow-lg">
-        <i class="fas fa-user-plus mr-1"></i>Daftar PPDB
+      <a href="#SPMB" class="bg-primary text-white px-5 py-2 rounded-full font-bold hover:bg-primary-dark transition shadow-lg">
+        <i class="fas fa-user-plus mr-1"></i>Daftar SPMB
       </a>
-      <a href="admin.html" class="text-gray-400 hover:text-primary transition" title="Admin"><i class="fas fa-user-shield"></i></a>
+      <button onclick="openAdmin()" class="text-gray-400 hover:text-primary transition" title="Admin">
+        <i class="fas fa-user-shield"></i>
+      </button>
     </div>
 
     <button id="menuBtn" class="lg:hidden text-primary text-2xl focus:outline-none">
@@ -112,10 +105,12 @@ tailwind.config = {
     <a href="#ekskul" class="block hover:text-gold"><i class="fas fa-futbol w-6"></i>Ekskul</a>
     <a href="#fasilitas" class="block hover:text-gold"><i class="fas fa-building w-6"></i>Fasilitas</a>
     <a href="#kontak" class="block hover:text-gold"><i class="fas fa-address-book w-6"></i>Kontak</a>
-    <a href="#ppdb" class="block bg-gold text-green-dark px-4 py-2 rounded-lg text-center font-bold mt-2">
-      <i class="fas fa-user-plus mr-1"></i>Daftar PPDB
+    <a href="#SPMB" class="block bg-gold text-green-dark px-4 py-2 rounded-lg text-center font-bold mt-2">
+      <i class="fas fa-user-plus mr-1"></i>Daftar SPMB
     </a>
-    <a href="admin.html" class="block text-gray-300 hover:text-gold text-sm mt-2"><i class="fas fa-user-shield mr-1"></i>Admin Panel</a>
+    <button onclick="openAdmin(); document.getElementById('mobileMenu').classList.add('hidden')" class="block text-gray-300 hover:text-gold text-sm mt-2 w-full text-left">
+      <i class="fas fa-user-shield mr-1"></i>Admin Panel
+    </button>
   </div>
 </nav>
 
@@ -129,7 +124,7 @@ tailwind.config = {
   <div class="container mx-auto px-6 py-20 md:py-32 relative z-10 grid lg:grid-cols-2 gap-10 items-center">
     <div class="text-white">
       <span class="bg-gold text-green-dark px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4 shadow-lg">
-        <i class="fas fa-bullhorn mr-1"></i> PPDB 2027/2028 DIBUKA
+        <i class="fas fa-bullhorn mr-1"></i> SPMB <span class="tahunAjaran">2027/2028</span> DIBUKA
       </span>
       <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
         Selamat Datang di <br>
@@ -139,7 +134,7 @@ tailwind.config = {
         Membentuk generasi beriman, bertaqwa, berkarakter, berprestasi, berwawasan global, serta berbudaya.
       </p>
       <div class="flex gap-3 flex-wrap">
-        <a href="#ppdb" class="bg-gold text-green-dark px-7 py-3.5 rounded-full font-bold text-lg hover:bg-gold-dark hover:text-white transition shadow-xl">
+        <a href="#SPMB" class="bg-gold text-green-dark px-7 py-3.5 rounded-full font-bold text-lg hover:bg-gold-dark hover:text-white transition shadow-xl">
           <i class="fas fa-user-plus mr-2"></i> Daftar Sekarang
         </a>
         <a href="#profil" class="border-2 border-white text-white px-7 py-3.5 rounded-full font-bold text-lg hover:bg-white hover:text-blue-dark transition">
@@ -232,55 +227,79 @@ tailwind.config = {
       <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">3 Jenjang di Bawah Satu Yayasan</h2>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-8 items-stretch">
+
       <!-- TK -->
-      <div class="bg-gradient-to-br from-pink-50 to-white rounded-3xl p-8 shadow-lg hover-up border-t-4 border-pink-400 text-center">
-        <img src="https://i.imgur.com/IbSfRGp.jpeg" alt="Logo TK" class="h-28 w-auto mx-auto mb-4">
-        <h3 class="text-2xl font-extrabold text-pink-600 mb-2">TK Islam</h3>
-        <p class="text-sm text-gray-500 mb-4">Taman Kanak-Kanak Islam Al-Mughni</p>
-        <ul class="text-sm text-gray-600 space-y-2 text-left mb-6">
-          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Usia 4-6 tahun</li>
+      <div class="bg-gradient-to-br from-pink-50 to-white rounded-3xl p-6 shadow-lg hover-up border-t-4 border-pink-400 flex flex-col">
+        <img src="https://i.imgur.com/IbSfRGp.jpeg" alt="Logo TK" class="h-24 w-auto mx-auto mb-3">
+        <h3 class="text-2xl font-extrabold text-pink-600 mb-1 text-center">TK Islam</h3>
+        <p class="text-sm text-gray-500 mb-3 text-center">Taman Kanak-Kanak Islam Al-Mughni</p>
+
+        <div class="bg-pink-100/50 rounded-xl p-3 mb-3">
+          <p class="text-xs font-bold text-pink-700 mb-2"><i class="fas fa-users mr-1"></i>Kategori Usia:</p>
+          <ul class="text-xs text-gray-700 space-y-1">
+            <li><i class="fas fa-baby text-pink-500 mr-2"></i><strong>KB</strong> — 3-4 tahun</li>
+            <li><i class="fas fa-child text-pink-500 mr-2"></i><strong>TK A</strong> — 4-5 tahun</li>
+            <li><i class="fas fa-child-reaching text-pink-500 mr-2"></i><strong>TK B</strong> — 5-6 tahun</li>
+          </ul>
+        </div>
+
+        <ul class="text-sm text-gray-600 space-y-1.5 mb-4">
           <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Pembinaan adab & akhlak</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Pembinaan karakter</li>
           <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Calistung menyenangkan</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Belajar sambil bermain</li>
           <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Hafalan juz 30</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Hafalan doa harian</li>
+          <li><i class="fas fa-check-circle text-pink-500 mr-2"></i>Hafalan hadits</li>
         </ul>
-        <a href="#ppdb" class="inline-block bg-pink-500 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-pink-600 transition">
-          Daftar TK <i class="fas fa-arrow-right ml-1"></i>
+
+        <a href="#SPMB" style="display:block;margin-top:auto;text-align:center;background:#EC4899;color:#FFFFFF;padding:12px 24px;border-radius:9999px;font-weight:700;font-size:14px;text-decoration:none;">
+          Daftar TK →
         </a>
       </div>
 
       <!-- SD -->
-      <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 shadow-lg hover-up border-t-4 border-blue-500 text-center relative">
-        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-green-dark text-xs font-bold px-3 py-1 rounded-full">POPULER</span>
-        <img src="https://i.imgur.com/8C5SQt4.png" alt="Logo SD" class="h-28 w-auto mx-auto mb-4">
-        <h3 class="text-2xl font-extrabold text-blue-700 mb-2">SD Islam</h3>
-        <p class="text-sm text-gray-500 mb-4">Sekolah Dasar Islam Al-Mughni</p>
-        <ul class="text-sm text-gray-600 space-y-2 text-left mb-6">
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-6 shadow-lg hover-up border-t-4 border-blue-500 relative flex flex-col">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-green-dark text-xs font-bold px-3 py-1 rounded-full z-10">POPULER</span>
+        <img src="https://i.imgur.com/8C5SQt4.png" alt="Logo SD" class="h-24 w-auto mx-auto mb-3">
+        <h3 class="text-2xl font-extrabold text-blue-700 mb-1 text-center">SD Islam</h3>
+        <p class="text-sm text-gray-500 mb-3 text-center">Sekolah Dasar Islam Al-Mughni</p>
+
+        <ul class="text-sm text-gray-600 space-y-1.5 mb-4">
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Full day school</li>
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Tahfidz 3 juz</li>
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Muroja'ah</li>
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Literasi Numerasi</li>
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Lab komputer & IPA</li>
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Ekskul beragam</li>
         </ul>
-        <a href="#ppdb" class="inline-block bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-700 transition">
-          Daftar SD <i class="fas fa-arrow-right ml-1"></i>
+
+        <a href="#SPMB" style="display:block;margin-top:auto;text-align:center;background:#2563EB;color:#FFFFFF;padding:12px 24px;border-radius:9999px;font-weight:700;font-size:14px;text-decoration:none;">
+          Daftar SD →
         </a>
       </div>
 
       <!-- SMP -->
-      <div class="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 shadow-lg hover-up border-t-4 border-green-500 text-center">
-        <img src="https://i.imgur.com/AYd0K8b.png" alt="Logo SMP" class="h-28 w-auto mx-auto mb-4">
-        <h3 class="text-2xl font-extrabold text-green-700 mb-2">SMP Islam</h3>
-        <p class="text-sm text-gray-500 mb-4">SMP YAPIA Al-Mughni</p>
-        <ul class="text-sm text-gray-600 space-y-2 text-left mb-6">
+      <div class="bg-gradient-to-br from-green-50 to-white rounded-3xl p-6 shadow-lg hover-up border-t-4 border-green-500 flex flex-col">
+        <img src="https://i.imgur.com/AYd0K8b.png" alt="Logo SMP" class="h-24 w-auto mx-auto mb-3">
+        <h3 class="text-2xl font-extrabold text-green-700 mb-1 text-center">SMP Islam</h3>
+        <p class="text-sm text-gray-500 mb-3 text-center">SMP YAPIA Al-Mughni</p>
+
+        <ul class="text-sm text-gray-600 space-y-1.5 mb-4">
           <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Kelas 7-9</li>
-          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Tahfidz lanjutan</li>
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Tahfidz lanjutan 3 Juz</li>
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>English Day Setiap Jum'at</li>
+          <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Muroja'ah Bersama</li>
           <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Leadership & sains</li>
           <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Persiapan SMA favorit</li>
         </ul>
-        <a href="#ppdb" class="inline-block bg-green-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-green-700 transition">
-          Daftar SMP <i class="fas fa-arrow-right ml-1"></i>
+
+        <a href="#SPMB" style="display:block;margin-top:auto;text-align:center;background:#16A34A;color:#FFFFFF;padding:12px 24px;border-radius:9999px;font-weight:700;font-size:14px;text-decoration:none;">
+          Daftar SMP →
         </a>
       </div>
+
     </div>
   </div>
 </section>
@@ -290,7 +309,7 @@ tailwind.config = {
   <div class="container mx-auto px-6">
     <div class="text-center mb-12">
       <span class="text-gold font-bold text-lg"><i class="fas fa-tags mr-2"></i>Rincian Biaya</span>
-      <h2 class="text-3xl md:text-4xl font-bold mt-2">Biaya Pendidikan 2027/2028</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2">Biaya Pendidikan <span class="tahunAjaran">2027/2028</span></h2>
       <p class="text-blue-100 mt-3 max-w-2xl mx-auto">Berikut rincian biaya pendaftaran untuk masing-masing jenjang.</p>
     </div>
 
@@ -323,10 +342,7 @@ tailwind.config = {
           <tr class="border-b hover:bg-blue-50">
             <td class="p-4 font-semibold">Seragam</td>
             <td class="p-4 text-center">Rp 750.000</td>
-            <td class="p-4 text-center text-xs">
-              Rp 1.700.000 (L)<br>
-              Rp 1.800.000 (P)
-            </td>
+            <td class="p-4 text-center text-xs">Rp 1.700.000 (L)<br>Rp 1.800.000 (P)</td>
             <td class="p-4 text-center">Rp 1.220.000</td>
           </tr>
           <tr class="border-b hover:bg-blue-50">
@@ -338,19 +354,12 @@ tailwind.config = {
           <tr class="bg-green/10">
             <td class="p-4 font-extrabold text-lg">TOTAL</td>
             <td class="p-4 text-center font-extrabold text-lg text-green-dark">Rp 1.450.000</td>
-            <td class="p-4 text-center font-extrabold text-sm text-green-dark">
-              Rp 3.100.000 (L)<br>
-              Rp 3.200.000 (P)
-            </td>
+            <td class="p-4 text-center font-extrabold text-sm text-green-dark">Rp 3.100.000 (L)<br>Rp 3.200.000 (P)</td>
             <td class="p-4 text-center font-extrabold text-lg text-green-dark">Rp 2.795.000</td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <p class="text-center text-blue-100 text-sm mt-4">
-      <i class="fas fa-info-circle mr-1"></i> Belum termasuk SPP bulanan (Agustus - Juni)
-    </p>
   </div>
 </section>
 
@@ -364,7 +373,6 @@ tailwind.config = {
     </div>
 
     <div class="grid md:grid-cols-3 gap-6">
-      <!-- Gelombang 1 -->
       <div class="bg-gradient-to-br from-gold to-gold-dark rounded-3xl p-8 shadow-2xl hover-up relative overflow-hidden">
         <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl">TERBAIK!</span>
         <i class="fas fa-crown text-white/30 text-6xl absolute top-4 right-4"></i>
@@ -376,7 +384,6 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Gelombang 2 -->
       <div class="bg-white rounded-3xl p-8 shadow-xl hover-up border-2 border-primary">
         <i class="fas fa-star text-primary/10 text-6xl absolute top-4 right-4"></i>
         <p class="text-primary font-bold text-sm mb-2">GELOMBANG 2</p>
@@ -387,7 +394,6 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Gelombang 3 -->
       <div class="bg-white rounded-3xl p-8 shadow-xl hover-up border-2 border-gray-300">
         <i class="fas fa-medal text-gray-200 text-6xl absolute top-4 right-4"></i>
         <p class="text-gray-600 font-bold text-sm mb-2">GELOMBANG 3</p>
@@ -421,7 +427,7 @@ tailwind.config = {
       </div>
       <div class="bg-gradient-to-br from-red-100 to-red-50 p-6 rounded-2xl text-center hover-up">
         <i class="fas fa-hand-fist text-4xl text-red-600 mb-3"></i>
-        <p class="font-bold text-red-800 text-sm">Bela Diri Silat</p>
+        <p class="font-bold text-red-800 text-sm">Bela Diri Pencak Silat</p>
       </div>
       <div class="bg-gradient-to-br from-pink-100 to-pink-50 p-6 rounded-2xl text-center hover-up">
         <i class="fas fa-music text-4xl text-pink-600 mb-3"></i>
@@ -434,11 +440,12 @@ tailwind.config = {
     </div>
 
     <!-- Galeri Kegiatan -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-      <img src="https://i.imgur.com/joHcCeo.jpeg" alt="Pramuka" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
-      <img src="https://i.imgur.com/RKwiLvq.jpeg" alt="Paskibra" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
-      <img src="https://i.imgur.com/qqTBKzH.jpeg" alt="TK Mewarnai" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
-      <img src="https://i.imgur.com/Q01e2oh.jpeg" alt="Kegiatan Sekolah" class="rounded-2xl object-cover h-48 w-full hover-up cursor-pointer" loading="lazy">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
+      <img src="https://i.imgur.com/joHcCeo.jpeg" alt="Pramuka" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/RKwiLvq.jpeg" alt="Paskibra" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/qqTBKzH.jpeg" alt="TK Mewarnai" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/Q01e2oh.jpeg" alt="Kegiatan Sekolah" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
+      <img src="https://i.imgur.com/SWycndF.jpeg" alt="Lab IPA Siswa" class="rounded-2xl object-cover h-40 w-full hover-up cursor-pointer" loading="lazy">
     </div>
   </div>
 </section>
@@ -451,40 +458,63 @@ tailwind.config = {
       <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Sarana & Prasarana</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover-up">
+        <img src="https://i.imgur.com/jpbR0Tv.jpeg" alt="Lab IPA" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="bg-primary/10 text-primary p-2 rounded-lg"><i class="fas fa-flask"></i></div>
+            <h3 class="font-bold text-green-dark">Lab IPA</h3>
+          </div>
+          <p class="text-xs text-gray-500">Praktikum sains dengan alat peraga lengkap</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover-up">
+        <img src="https://i.imgur.com/ri2Doff.jpeg" alt="Lab Komputer" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="bg-primary/10 text-primary p-2 rounded-lg"><i class="fas fa-laptop-code"></i></div>
+            <h3 class="font-bold text-green-dark">Lab Komputer</h3>
+          </div>
+          <p class="text-xs text-gray-500">Fasilitas komputer untuk pembelajaran digital</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover-up">
+        <img src="https://i.imgur.com/rtBJWlv.jpeg" alt="Perpustakaan" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="bg-primary/10 text-primary p-2 rounded-lg"><i class="fas fa-book"></i></div>
+            <h3 class="font-bold text-green-dark">Perpustakaan</h3>
+          </div>
+          <p class="text-xs text-gray-500">Koleksi lengkap untuk literasi siswa</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow hover-up flex items-start gap-4">
         <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-snowflake text-xl"></i></div>
         <div><p class="font-bold">Ruang Kelas AC</p><p class="text-xs text-gray-500">Nyaman & sejuk</p></div>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow hover-up flex items-start gap-4">
         <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-tree text-xl"></i></div>
         <div><p class="font-bold">Indoor & Outdoor</p><p class="text-xs text-gray-500">Pembelajaran fleksibel</p></div>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
-        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-laptop-code text-xl"></i></div>
-        <div><p class="font-bold">Lab Komputer</p><p class="text-xs text-gray-500">Fasilitas lengkap</p></div>
-      </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
-        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-flask text-xl"></i></div>
-        <div><p class="font-bold">Lab IPA</p><p class="text-xs text-gray-500">Praktikum sains</p></div>
-      </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow hover-up flex items-start gap-4">
         <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-language text-xl"></i></div>
         <div><p class="font-bold">Lab Bahasa Inggris</p><p class="text-xs text-gray-500">Bilingual program</p></div>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
-        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-book text-xl"></i></div>
-        <div><p class="font-bold">Perpustakaan</p><p class="text-xs text-gray-500">Koleksi lengkap</p></div>
-      </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow hover-up flex items-start gap-4">
         <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-leaf text-xl"></i></div>
         <div><p class="font-bold">Lingkungan Nyaman</p><p class="text-xs text-gray-500">Asri & aman</p></div>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow hover-up flex items-start gap-4">
         <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-chalkboard-user text-xl"></i></div>
         <div><p class="font-bold">Guru Berpengalaman</p><p class="text-xs text-gray-500">Pendidik profesional</p></div>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover-up flex items-start gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow hover-up flex items-start gap-4">
         <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="fas fa-book-open text-xl"></i></div>
         <div><p class="font-bold">Kurikulum Lengkap</p><p class="text-xs text-gray-500">Nasional + diniyah</p></div>
       </div>
@@ -492,21 +522,21 @@ tailwind.config = {
   </div>
 </section>
 
-<!-- ========== PPDB FORM ========== -->
-<section id="ppdb" class="py-20 bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
+<!-- ========== SPMB FORM ========== -->
+<section id="SPMB" class="py-20 bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
   <div class="absolute inset-0 pattern-bg opacity-20"></div>
   <div class="container mx-auto px-6 relative">
     <div class="text-center text-white mb-12">
       <span class="bg-gold text-green-dark px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4">
-        <i class="fas fa-file-signature mr-1"></i> FORMULIR PPDB ONLINE
+        <i class="fas fa-file-signature mr-1"></i> FORMULIR SPMB ONLINE
       </span>
       <h2 class="text-3xl md:text-5xl font-extrabold mt-2">Pendaftaran Peserta Didik Baru</h2>
-      <p class="text-lg text-primary-light mt-3 max-w-2xl mx-auto">Tahun Ajaran 2027/2028</p>
+      <p class="text-lg text-primary-light mt-3 max-w-2xl mx-auto">Tahun Ajaran <span class="tahunAjaran">2027/2028</span></p>
     </div>
 
     <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10 max-w-4xl mx-auto">
-      <form id="ppdbForm">
-        <!-- SECTION A: DATA PESERTA DIDIK -->
+      <form id="SPMBForm">
+        <!-- SECTION A -->
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
             <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">A</div>
@@ -543,11 +573,7 @@ tailwind.config = {
               <select required name="agama" class="form-input">
                 <option value="">-- Pilih --</option>
                 <option>Islam</option>
-                <option>Kristen</option>
-                <option>Katolik</option>
-                <option>Hindu</option>
-                <option>Buddha</option>
-                <option>Konghucu</option>
+                <option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option>
               </select>
             </div>
             <div>
@@ -562,8 +588,7 @@ tailwind.config = {
               <label class="form-label">Kewarganegaraan <span class="text-red-500">*</span></label>
               <select required name="kewarganegaraan" class="form-input">
                 <option value="">-- Pilih --</option>
-                <option>WNI</option>
-                <option>WNA</option>
+                <option>WNI</option><option>WNA</option>
               </select>
             </div>
             <div>
@@ -583,8 +608,12 @@ tailwind.config = {
               <textarea required name="alamat" rows="2" class="form-input"></textarea>
             </div>
             <div>
-              <label class="form-label">Nomor HP <span class="text-red-500">*</span></label>
-              <input required name="hp" type="tel" class="form-input" placeholder="08xxxxxxxxxx">
+              <label class="form-label">Nomor HP Siswa</label>
+              <input name="hp" type="tel" class="form-input" placeholder="08xxxxxxxxxx">
+            </div>
+            <div>
+              <label class="form-label">Nomor Telepon Orang Tua <span class="text-red-500">*</span></label>
+              <input required name="hp_ortu" type="tel" class="form-input" placeholder="08xxxxxxxxxx">
             </div>
             <div>
               <label class="form-label">Jenis Tinggal <span class="text-red-500">*</span></label>
@@ -599,14 +628,13 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- SECTION B: DATA ORANG TUA / WALI -->
+        <!-- SECTION B -->
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
             <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">B</div>
             <h3 class="text-xl font-bold text-green-dark">Data Orang Tua / Wali</h3>
           </div>
 
-          <!-- Data Ayah -->
           <h4 class="font-bold text-primary mb-3 mt-4"><i class="fas fa-male mr-2"></i>Data Ayah</h4>
           <div class="grid md:grid-cols-3 gap-4 mb-6">
             <div><label class="form-label">Nama</label><input name="nama_ayah" type="text" class="form-input"></div>
@@ -616,8 +644,7 @@ tailwind.config = {
             <div><label class="form-label">Pendidikan Terakhir</label>
               <select name="pendidikan_ayah" class="form-input">
                 <option value="">-- Pilih --</option>
-                <option>SD</option><option>SMP</option><option>SMA/SMK</option>
-                <option>D3</option><option>S1</option><option>S2</option><option>S3</option>
+                <option>SD</option><option>SMP</option><option>SMA/SMK</option><option>D3</option><option>S1</option><option>S2</option><option>S3</option>
               </select>
             </div>
             <div><label class="form-label">Penghasilan</label>
@@ -632,7 +659,6 @@ tailwind.config = {
             </div>
           </div>
 
-          <!-- Data Ibu -->
           <h4 class="font-bold text-primary mb-3"><i class="fas fa-female mr-2"></i>Data Ibu</h4>
           <div class="grid md:grid-cols-3 gap-4 mb-6">
             <div><label class="form-label">Nama</label><input name="nama_ibu" type="text" class="form-input"></div>
@@ -642,8 +668,7 @@ tailwind.config = {
             <div><label class="form-label">Pendidikan Terakhir</label>
               <select name="pendidikan_ibu" class="form-input">
                 <option value="">-- Pilih --</option>
-                <option>SD</option><option>SMP</option><option>SMA/SMK</option>
-                <option>D3</option><option>S1</option><option>S2</option><option>S3</option>
+                <option>SD</option><option>SMP</option><option>SMA/SMK</option><option>D3</option><option>S1</option><option>S2</option><option>S3</option>
               </select>
             </div>
             <div><label class="form-label">Penghasilan</label>
@@ -658,7 +683,6 @@ tailwind.config = {
             </div>
           </div>
 
-          <!-- Data Wali -->
           <h4 class="font-bold text-primary mb-3"><i class="fas fa-user-friends mr-2"></i>Data Wali <span class="text-gray-400 font-normal text-xs">(Opsional)</span></h4>
           <div class="grid md:grid-cols-3 gap-4">
             <div><label class="form-label">Nama Wali</label><input name="nama_wali" type="text" class="form-input"></div>
@@ -668,8 +692,7 @@ tailwind.config = {
             <div><label class="form-label">Pendidikan Wali</label>
               <select name="pendidikan_wali" class="form-input">
                 <option value="">-- Pilih --</option>
-                <option>SD</option><option>SMP</option><option>SMA/SMK</option>
-                <option>D3</option><option>S1</option><option>S2</option><option>S3</option>
+                <option>SD</option><option>SMP</option><option>SMA/SMK</option><option>D3</option><option>S1</option><option>S2</option><option>S3</option>
               </select>
             </div>
             <div><label class="form-label">Penghasilan Wali</label>
@@ -685,7 +708,7 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- SECTION C: DATA ASAL SEKOLAH -->
+        <!-- SECTION C -->
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-primary/20">
             <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">C</div>
@@ -694,9 +717,11 @@ tailwind.config = {
           <div class="grid md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
               <label class="form-label">Jenjang yang Dituju <span class="text-red-500">*</span></label>
-              <select required name="jenjang" class="form-input font-bold text-primary">
+              <select required name="jenjang" id="jenjangSelect" class="form-input font-bold text-primary">
                 <option value="">-- Pilih Jenjang --</option>
-                <option>TK Islam Al-Mughni</option>
+                <option>KB Islam Al-Mughni (3-4 tahun)</option>
+                <option>TK A Islam Al-Mughni (4-5 tahun)</option>
+                <option>TK B Islam Al-Mughni (5-6 tahun)</option>
                 <option>SD Islam Al-Mughni</option>
                 <option>SMP YAPIA Al-Mughni</option>
               </select>
@@ -716,7 +741,6 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- KONFIRMASI -->
         <div class="bg-primary/5 rounded-2xl p-4 mb-6">
           <label class="flex items-start gap-3 cursor-pointer">
             <input type="checkbox" required class="mt-1 w-5 h-5 accent-primary">
@@ -738,7 +762,7 @@ tailwind.config = {
   <div class="container mx-auto px-6">
     <div class="text-center mb-12">
       <span class="text-primary font-bold text-lg"><i class="fas fa-headset mr-2"></i>Hubungi Kami</span>
-      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Nara Hubung PPDB</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mt-2 text-green-dark">Nara Hubung SPMB</h2>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 mb-10">
@@ -800,7 +824,7 @@ tailwind.config = {
         <li><a href="#jenjang" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Jenjang</a></li>
         <li><a href="#biaya" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Biaya</a></li>
         <li><a href="#ekskul" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>Ekstrakurikuler</a></li>
-        <li><a href="#ppdb" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>PPDB Online</a></li>
+        <li><a href="#SPMB" class="hover:text-gold"><i class="fas fa-angle-right mr-2"></i>SPMB Online</a></li>
       </ul>
     </div>
     <div>
@@ -820,25 +844,134 @@ tailwind.config = {
     <p class="text-xs text-gray-400">
       <i class="fas fa-code text-gold mr-1"></i>
       Developed by <a href="#" class="text-gold hover:underline font-semibold">Adjarindo Creative Aksara</a> © 2026
+      <button onclick="openAdmin()" class="text-gray-500 hover:text-gold ml-3"><i class="fas fa-lock text-xs"></i> Admin</button>
     </p>
   </div>
 </footer>
 
 <!-- ========== FLOATING WA ========== -->
-<a href="https://wa.me/628951158675?text=Assalamu'alaikum%2C%20saya%20ingin%20bertanya%20tentang%20PPDB%20Al-Mughni%202027%2F2028" target="_blank"
-   class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 z-30 text-3xl animate-bounce" title="Chat Ibu Endang">
+<a id="floatWA" href="https://wa.me/628951158675?text=Assalamu'alaikum%2C%20saya%20ingin%20bertanya%20tentang%20SPMB%20Al-Mughni" target="_blank"
+   class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 z-30 text-3xl animate-bounce" title="Chat via WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- ========== ADMIN MODAL ========== -->
+<div id="adminPanel" class="popup-overlay fixed inset-0 bg-slate-900/95 z-50 justify-center items-start overflow-y-auto p-4">
+  <div class="bg-white rounded-2xl max-w-6xl w-full my-8 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-primary to-primary-dark text-white p-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-user-shield text-2xl text-gold"></i>
+        <div>
+          <h2 class="font-bold text-lg leading-none">Admin Panel</h2>
+          <p class="text-xs text-primary-light">Yayasan Pendidikan Al-Mughni</p>
+        </div>
+      </div>
+      <button onclick="closeAdmin()" class="text-white hover:text-gold text-xl"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="adminLogin" class="p-10 max-w-md mx-auto text-center">
+      <img src="https://i.imgur.com/FT2H1oL.png" alt="Logo" class="h-20 w-auto mx-auto mb-4">
+      <h3 class="text-2xl font-bold text-green-dark mb-2">Login Admin</h3>
+      <p class="text-sm text-gray-500 mb-6">Masukkan password untuk mengakses dashboard.</p>
+      <input id="adminPassword" type="password" placeholder="Password" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:border-primary outline-none mb-3 text-center">
+      <button onclick="loginAdmin()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark transition">
+        <i class="fas fa-sign-in-alt mr-2"></i>Masuk
+      </button>
+      <p id="loginError" class="text-red-500 text-sm mt-3 hidden">Password salah!</p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="adminDashboard" class="hidden">
+      <div class="flex border-b">
+        <div class="flex-1 px-6 py-4 font-semibold text-green-dark">
+          <i class="fas fa-users mr-2 text-primary"></i>Data Pendaftar SPMB
+        </div>
+        <button onclick="logoutAdmin()" class="px-6 py-4 text-red-500 font-semibold text-sm"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+      </div>
+
+      <div class="p-6">
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+          <div>
+            <p class="text-xs text-gray-500">Total: <span id="totalCount" class="font-bold text-primary text-base">0</span> pendaftar</p>
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            <select id="filterJenjang" onchange="renderData()" class="border-2 border-gray-200 rounded-lg px-3 py-2 text-sm">
+              <option value="">Semua Jenjang</option>
+              <option>KB Islam Al-Mughni (3-4 tahun)</option>
+              <option>TK A Islam Al-Mughni (4-5 tahun)</option>
+              <option>TK B Islam Al-Mughni (5-6 tahun)</option>
+              <option>SD Islam Al-Mughni</option>
+              <option>SMP YAPIA Al-Mughni</option>
+            </select>
+            <button onclick="exportExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700"><i class="fas fa-file-excel mr-1"></i>Download Excel</button>
+            <button onclick="renderData()" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-dark"><i class="fas fa-sync mr-1"></i>Refresh</button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto bg-white rounded-2xl border">
+          <table class="w-full text-sm">
+            <thead class="bg-primary/10 text-primary">
+              <tr>
+                <th class="p-3 text-left">No. Daftar</th>
+                <th class="p-3 text-left">Tanggal</th>
+                <th class="p-3 text-left">Nama</th>
+                <th class="p-3 text-left">Jenjang</th>
+                <th class="p-3 text-left">WA Ortu</th>
+                <th class="p-3 text-left">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+          </table>
+          <p id="emptyMsg" class="text-center text-gray-500 py-8 hidden">Belum ada data pendaftar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ========== JAVASCRIPT ========== -->
 <script>
-// Config
-const APPS_SCRIPT_URL = localStorage.getItem('sit_apps_script_url') || '';
-const LOCAL_PPDB_KEY = 'sit_ppdb_data';
+/* =========================================================
+   ⚙️ KONFIGURASI SITUS — EDIT DI SINI KALAU PERLU UPDATE
+   ========================================================= */
+const SITE_CONFIG = {
+  // ⚠️ GANTI dengan URL Worker Cloudflare Anda setelah deploy
+  WORKER_URL: 'https://ppdb-almughni.sigmaedu20.workers.dev',
+  
+  // Nomor WA untuk floating button & konfirmasi
+  WA_NUMBER: '628951158675',
+  
+  // Tahun ajaran yang ditampilkan
+  TAHUN_AJARAN: '2027/2028',
+  
+  // Password admin (jangan disebar ke publik)
+  ADMIN_PASSWORD: 'almughni123'
+};
 
+/* =========================================================
+   DATA LOKAL (per browser - untuk backup)
+   ========================================================= */
+const LOCAL_DATA_KEY = 'sit_spmb_data';
+
+/* =========================================================
+   INIT
+   ========================================================= */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Mobile Menu
+// Apply tahun ajaran ke semua elemen dengan class .tahunAjaran
+document.querySelectorAll('.tahunAjaran').forEach(el => {
+  el.textContent = SITE_CONFIG.TAHUN_AJARAN;
+});
+
+// Apply WA floating
+const waMsgText = encodeURIComponent(`Assalamu'alaikum, saya ingin bertanya tentang SPMB Al-Mughni ${SITE_CONFIG.TAHUN_AJARAN}`);
+document.getElementById('floatWA').href = `https://wa.me/${SITE_CONFIG.WA_NUMBER}?text=${waMsgText}`;
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
 document.getElementById('menuBtn').addEventListener('click', () => {
   document.getElementById('mobileMenu').classList.toggle('hidden');
 });
@@ -846,8 +979,10 @@ document.querySelectorAll('#mobileMenu a').forEach(a => {
   a.addEventListener('click', () => document.getElementById('mobileMenu').classList.add('hidden'));
 });
 
-// Form Submit
-document.getElementById('ppdbForm').addEventListener('submit', async (e) => {
+/* =========================================================
+   FORM SUBMIT — KIRIM KE WORKER → APPS SCRIPT
+   ========================================================= */
+document.getElementById('SPMBForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
   const status = document.getElementById('statusMsg');
@@ -858,52 +993,226 @@ document.getElementById('ppdbForm').addEventListener('submit', async (e) => {
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData.entries());
   data.timestamp = new Date().toISOString();
+  data.tahun_ajaran = SITE_CONFIG.TAHUN_AJARAN;
   data.reg_number = generateRegNumber();
 
-  // Simpan lokal
-  const list = JSON.parse(localStorage.getItem(LOCAL_PPDB_KEY) || '[]');
+  // Simpan lokal (backup di browser user)
+  const list = JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || '[]');
   list.unshift({ ...data, id: Date.now() });
-  localStorage.setItem(LOCAL_PPDB_KEY, JSON.stringify(list));
+  localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(list));
 
-  // Kirim ke Apps Script
+  // Kirim ke Worker (HARDCODE URL)
   let sentToSheet = false;
-  if (APPS_SCRIPT_URL) {
+  const workerReady = SITE_CONFIG.WORKER_URL && !SITE_CONFIG.WORKER_URL.includes('USERNAME');
+  
+  if (workerReady) {
     try {
-      await fetch(APPS_SCRIPT_URL, {
+      const res = await fetch(SITE_CONFIG.WORKER_URL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      sentToSheet = true;
-    } catch (err) { console.warn(err); }
+      const result = await res.json();
+      if (result.status === 'ok') sentToSheet = true;
+    } catch (err) { 
+      console.warn('Worker error:', err); 
+    }
+  } else {
+    console.warn('Worker URL belum dikonfigurasi. Data hanya tersimpan lokal.');
   }
 
   btn.disabled = false;
   btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Kirim Pendaftaran';
 
-  status.className = 'text-center text-sm mt-3 text-green-600 font-semibold';
-  status.innerHTML = `<i class="fas fa-check-circle"></i> Berhasil! No. Pendaftaran: <b>${data.reg_number}</b>`;
+  if (sentToSheet) {
+    status.className = 'text-center text-sm mt-3 text-green-600 font-semibold';
+    status.innerHTML = `<i class="fas fa-check-circle"></i> Berhasil! No. Pendaftaran: <b>${data.reg_number}</b>`;
+  } else {
+    status.className = 'text-center text-sm mt-3 text-yellow-600 font-semibold';
+    status.innerHTML = `<i class="fas fa-info-circle"></i> Data tersimpan lokal. No. Pendaftaran: <b>${data.reg_number}</b>`;
+  }
 
   // WA konfirmasi
   const waMsg = encodeURIComponent(
-    `Assalamu'alaikum, saya ${data.nama_lengkap} telah mendaftar PPDB Al-Mughni 2027/2028.\n\n` +
+    `Assalamu'alaikum, saya ${data.nama_lengkap} telah mendaftar SPMB Al-Mughni ${data.tahun_ajaran}.\n\n` +
     `No. Pendaftaran: ${data.reg_number}\n` +
     `Jenjang: ${data.jenjang}\n` +
-    `Nama: ${data.nama_lengkap}\n\n` +
+    `Nama: ${data.nama_lengkap}\n` +
+    `No. HP Orang Tua: ${data.hp_ortu}\n\n` +
     `Mohon konfirmasinya. Terima kasih.`
   );
   setTimeout(() => {
-    window.open(`https://wa.me/628951158675?text=${waMsg}`, '_blank');
-  }, 1000);
+    window.open(`https://wa.me/${SITE_CONFIG.WA_NUMBER}?text=${waMsg}`, '_blank');
+  }, 1200);
 
   e.target.reset();
 });
 
 function generateRegNumber() {
-  const list = JSON.parse(localStorage.getItem(LOCAL_PPDB_KEY) || '[]');
+  const list = JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || '[]');
   const year = new Date().getFullYear();
   return `AM-${year}-${String(list.length + 1).padStart(4, '0')}`;
+}
+
+/* =========================================================
+   ADMIN PANEL
+   ========================================================= */
+function openAdmin() {
+  document.getElementById('adminPanel').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  if (sessionStorage.getItem('sit_admin_logged') === '1') {
+    showDashboard();
+  } else {
+    document.getElementById('adminLogin').classList.remove('hidden');
+    document.getElementById('adminDashboard').classList.add('hidden');
+  }
+}
+function closeAdmin() {
+  document.getElementById('adminPanel').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function loginAdmin() {
+  const input = document.getElementById('adminPassword').value;
+  if (input === SITE_CONFIG.ADMIN_PASSWORD) {
+    sessionStorage.setItem('sit_admin_logged', '1');
+    document.getElementById('loginError').classList.add('hidden');
+    document.getElementById('adminPassword').value = '';
+    showDashboard();
+  } else {
+    document.getElementById('loginError').classList.remove('hidden');
+  }
+}
+function logoutAdmin() {
+  sessionStorage.removeItem('sit_admin_logged');
+  closeAdmin();
+}
+function showDashboard() {
+  document.getElementById('adminLogin').classList.add('hidden');
+  document.getElementById('adminDashboard').classList.remove('hidden');
+  renderData();
+}
+
+/* =========================================================
+   DATA RENDERING
+   ========================================================= */
+function getData() { return JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || '[]'); }
+
+function renderData() {
+  const filter = document.getElementById('filterJenjang').value;
+  let list = getData();
+  if (filter) list = list.filter(d => d.jenjang === filter);
+  
+  const tbody = document.getElementById('dataTable');
+  const empty = document.getElementById('emptyMsg');
+  document.getElementById('totalCount').textContent = list.length;
+
+  if (!list.length) { tbody.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+
+  tbody.innerHTML = list.map((d, i) => `
+    <tr class="border-b hover:bg-gray-50">
+      <td class="p-3 font-mono text-xs font-bold text-primary">${d.reg_number || '-'}</td>
+      <td class="p-3 text-xs">${new Date(d.timestamp).toLocaleDateString('id-ID')}</td>
+      <td class="p-3 font-semibold text-sm">${d.nama_lengkap || '-'}</td>
+      <td class="p-3 text-xs">${d.jenjang || '-'}</td>
+      <td class="p-3 text-xs">
+        <a href="https://wa.me/${(d.hp_ortu||d.hp||'').replace(/^0/, '62')}" target="_blank" class="text-green-600 hover:underline">
+          <i class="fab fa-whatsapp"></i> ${d.hp_ortu || d.hp || '-'}
+        </a>
+      </td>
+      <td class="p-3">
+        <button onclick="viewDetail(${i})" class="text-primary hover:text-primary-dark text-xs" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function viewDetail(index) {
+  const d = getData()[index];
+  if (!d) return;
+  const html = Object.entries(d).map(([k, v]) =>
+    `<div class="py-1 border-b border-gray-100"><span class="font-semibold text-xs text-gray-500 inline-block w-44">${k.replace(/_/g, ' ')}</span><span class="text-sm">${v || '-'}</span></div>`
+  ).join('');
+  const w = window.open('', '_blank');
+  w.document.write(`
+    <html><head><title>Detail Pendaftar - ${d.nama_lengkap}</title>
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body{font-family:Poppins,sans-serif}</style>
+    </head><body class="bg-gray-50 p-6">
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow p-6">
+        <h1 class="text-2xl font-bold text-green-700 mb-4">Detail Pendaftar</h1>
+        <p class="text-sm text-gray-500 mb-6">No. Pendaftaran: <b class="text-teal-600">${d.reg_number}</b></p>
+        ${html}
+        <button onclick="window.print()" class="mt-6 bg-teal-600 text-white px-6 py-2 rounded-lg font-bold">Print</button>
+      </div>
+    </body></html>
+  `);
+}
+
+/* =========================================================
+   EXPORT EXCEL
+   ========================================================= */
+function exportExcel() {
+  const list = getData();
+  if (!list.length) { alert('Belum ada data untuk diunduh.'); return; }
+
+  const rows = list.map(d => ({
+    'No. Pendaftaran': d.reg_number || '',
+    'Tanggal Daftar': d.timestamp,
+    'Tahun Ajaran': d.tahun_ajaran || '',
+    'Jenjang': d.jenjang || '',
+    'Nama Lengkap': d.nama_lengkap || '',
+    'Nama Panggilan': d.nama_panggilan || '',
+    'Tempat Lahir': d.tempat_lahir || '',
+    'Tanggal Lahir': d.tanggal_lahir || '',
+    'Jenis Kelamin': d.jenis_kelamin || '',
+    'Agama': d.agama || '',
+    'NIK': d.nik || '',
+    'NIS/NISN': d.nisn || '',
+    'Kewarganegaraan': d.kewarganegaraan || '',
+    'Anak ke': d.anak_ke || '',
+    'Berat Badan': d.berat_badan || '',
+    'Tinggi Badan': d.tinggi_badan || '',
+    'Alamat': d.alamat || '',
+    'No HP Siswa': d.hp || '',
+    'No Telepon Orang Tua': d.hp_ortu || '',
+    'Jenis Tinggal': d.jenis_tinggal || '',
+    'Nama Ayah': d.nama_ayah || '',
+    'NIK Ayah': d.nik_ayah || '',
+    'Pekerjaan Ayah': d.pekerjaan_ayah || '',
+    'Usia Ayah': d.usia_ayah || '',
+    'Pendidikan Ayah': d.pendidikan_ayah || '',
+    'Penghasilan Ayah': d.penghasilan_ayah || '',
+    'Nama Ibu': d.nama_ibu || '',
+    'NIK Ibu': d.nik_ibu || '',
+    'Pekerjaan Ibu': d.pekerjaan_ibu || '',
+    'Usia Ibu': d.usia_ibu || '',
+    'Pendidikan Ibu': d.pendidikan_ibu || '',
+    'Penghasilan Ibu': d.penghasilan_ibu || '',
+    'Nama Wali': d.nama_wali || '',
+    'NIK Wali': d.nik_wali || '',
+    'Pekerjaan Wali': d.pekerjaan_wali || '',
+    'Usia Wali': d.usia_wali || '',
+    'Pendidikan Wali': d.pendidikan_wali || '',
+    'Penghasilan Wali': d.penghasilan_wali || '',
+    'Asal Sekolah': d.asal_sekolah || '',
+    'NPSN Sekolah': d.npsn || '',
+    'Alamat Sekolah': d.alamat_sekolah || ''
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  ws['!cols'] = Object.keys(rows[0]).map(() => ({ wch: 20 }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'SPMB');
+  XLSX.writeFile(wb, `SPMB-AlMughni-${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+
+/* =========================================================
+   INIT LOGIN CHECK
+   ========================================================= */
+if (sessionStorage.getItem('sit_admin_logged') === '1') {
+  // Admin sudah login (dari sesi sebelumnya) — tidak perlu aksi
 }
 </script>
 

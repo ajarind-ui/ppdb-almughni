@@ -62,7 +62,7 @@ tailwind.config = {
     <span class="mx-8">🏫 TK, SD, SMP Al-Mughni Kedung Gede - Tambun Selatan, Bekasi</span>
     <span class="mx-8">🎉 SPMB <span class="tahunAjaran">2027/2028</span> DIBUKA!</span>
     <span class="mx-8">💰 Diskon Uang Pangkal hingga 50% untuk Gelombang 1</span>
-    <span class="mx-8">📞 Info: Admin 0898-5602-315</span>
+    <span class="mx-8">📞 Info: Admin 0895-3934-34456</span>
     <span class="mx-8">🏫 TK, SD, SMP Al-Mughni Kedung Gede - Tambun Selatan, Bekasi</span>
   </div>
 </div>
@@ -267,6 +267,7 @@ tailwind.config = {
         <p class="text-sm text-gray-500 mb-3 text-center">Sekolah Dasar Islam Al-Mughni</p>
 
         <ul class="text-sm text-gray-600 space-y-1.5 mb-4">
+          <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Full day school</li>
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Tahfidz 3 juz</li>
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Muroja'ah</li>
           <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Literasi Numerasi</li>
@@ -757,7 +758,7 @@ tailwind.config = {
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 mb-10">
-      <a href="https://wa.me/628985602315" target="_blank" class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-2xl shadow-xl hover-up text-center">
+      <a href="https://wa.me/62895933434456" target="_blank" class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-2xl shadow-xl hover-up text-center">
         <i class="fab fa-whatsapp text-5xl mb-3"></i>
         <p class="font-bold text-lg">Ibu Endang</p>
         <p class="text-sm text-green-100">0895-1158-675</p>
@@ -841,7 +842,7 @@ tailwind.config = {
 </footer>
 
 <!-- ========== FLOATING WA ========== -->
-<a id="floatWA" href="https://wa.me/62895933434456" target="_blank"
+<a id="floatWA" href="https://wa.me/628985602315" target="_blank"
    class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 z-30 text-3xl animate-bounce" title="Chat via WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
@@ -882,6 +883,11 @@ tailwind.config = {
       </div>
 
       <div class="p-6">
+
+        <!-- ===== STATISTIK PER JENJANG ===== -->
+        <div id="statistikJenjang" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6"></div>
+
+        <!-- ===== FILTER & TOMBOL ===== -->
         <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
           <div>
             <p class="text-xs text-gray-500">Total: <span id="totalCount" class="font-bold text-primary text-base">0</span> pendaftar</p>
@@ -895,11 +901,16 @@ tailwind.config = {
               <option>SD Islam Al-Mughni</option>
               <option>SMP YAPIA Al-Mughni</option>
             </select>
-            <button onclick="exportExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700"><i class="fas fa-file-excel mr-1"></i>Download Excel</button>
-            <button onclick="fetchDataFromSheet()" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary-dark"><i class="fas fa-sync mr-1"></i>Refresh</button>
+            <button onclick="openDownloadModal()" style="background:#16A34A;color:#FFFFFF;padding:8px 16px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+              <i class="fas fa-file-excel"></i>Download Excel
+            </button>
+            <button onclick="fetchDataFromSheet()" style="background:#17BEBB;color:#FFFFFF;padding:8px 16px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+              <i class="fas fa-sync"></i>Refresh
+            </button>
           </div>
         </div>
 
+        <!-- ===== TABEL DATA ===== -->
         <div class="overflow-x-auto bg-white rounded-2xl border">
           <table class="w-full text-sm">
             <thead class="bg-primary/10 text-primary">
@@ -921,25 +932,58 @@ tailwind.config = {
   </div>
 </div>
 
+<!-- ========== MODAL DOWNLOAD JENJANG ========== -->
+<div id="downloadModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.8);z-index:60;align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#FFFFFF;border-radius:16px;max-width:420px;width:100%;padding:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="font-weight:700;font-size:18px;color:#1B5E20;">
+        <i class="fas fa-file-excel" style="color:#16A34A;"></i> Download Excel
+      </h3>
+      <button onclick="closeDownloadModal()" style="background:transparent;border:none;cursor:pointer;font-size:20px;color:#6B7280;">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <p style="font-size:13px;color:#6B7280;margin-bottom:16px;">Pilih jenjang yang ingin diunduh:</p>
+    
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <button onclick="exportExcelByJenjang('')" style="background:#17BEBB;color:#FFFFFF;padding:12px;border-radius:8px;font-weight:600;border:none;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;">
+        <span><i class="fas fa-database"></i> Semua Jenjang</span>
+        <span id="countAll" style="background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:12px;font-size:12px;">0</span>
+      </button>
+      <button onclick="exportExcelByJenjang('KB Islam Al-Mughni (3-4 tahun)')" style="background:#8B5CF6;color:#FFFFFF;padding:12px;border-radius:8px;font-weight:600;border:none;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;">
+        <span><i class="fas fa-baby"></i> KB (3-4 tahun)</span>
+        <span id="countKB" style="background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:12px;font-size:12px;">0</span>
+      </button>
+      <button onclick="exportExcelByJenjang('TK A Islam Al-Mughni (4-5 tahun)')" style="background:#EC4899;color:#FFFFFF;padding:12px;border-radius:8px;font-weight:600;border:none;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;">
+        <span><i class="fas fa-child"></i> TK A (4-5 tahun)</span>
+        <span id="countTKA" style="background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:12px;font-size:12px;">0</span>
+      </button>
+      <button onclick="exportExcelByJenjang('TK B Islam Al-Mughni (5-6 tahun)')" style="background:#F59E0B;color:#FFFFFF;padding:12px;border-radius:8px;font-weight:600;border:none;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;">
+        <span><i class="fas fa-child-reaching"></i> TK B (5-6 tahun)</span>
+        <span id="countTKB" style="background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:12px;font-size:12px;">0</span>
+      </button>
+      <button onclick="exportExcelByJenjang('SD Islam Al-Mughni')" style="background:#2563EB;color:#FFFFFF;padding:12px;border-radius:8px;font-weight:600;border:none;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;">
+        <span><i class="fas fa-pencil-ruler"></i> SD Islam</span>
+        <span id="countSD" style="background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:12px;font-size:12px;">0</span>
+      </button>
+      <button onclick="exportExcelByJenjang('SMP YAPIA Al-Mughni')" style="background:#16A34A;color:#FFFFFF;padding:12px;border-radius:8px;font-weight:600;border:none;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;">
+        <span><i class="fas fa-graduation-cap"></i> SMP YAPIA</span>
+        <span id="countSMP" style="background:rgba(255,255,255,0.3);padding:2px 8px;border-radius:12px;font-size:12px;">0</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- ========== JAVASCRIPT ========== -->
 <script>
 /* =========================================================
    ⚙️ KONFIGURASI SITUS — EDIT DI SINI KALAU PERLU UPDATE
    ========================================================= */
 const SITE_CONFIG = {
-  // ⚠️ GANTI dengan URL Worker Cloudflare Anda setelah deploy
   WORKER_URL: 'https://ppdb-almughni.sigmaedu20.workers.dev',
-  
-  // Nomor WA untuk floating button & konfirmasi
   WA_NUMBER: '628985602315',
-  
-  // Tahun ajaran yang ditampilkan
   TAHUN_AJARAN: '2027/2028',
-  
-  // Password admin
   ADMIN_PASSWORD: 'almughni123',
-  
-  // ⚠️ TOKEN HARUS SAMA dengan ADMIN_TOKEN di Apps Script
   ADMIN_TOKEN: 'AlMughni2027SecretXyZ'
 };
 
@@ -981,7 +1025,6 @@ document.getElementById('SPMBForm').addEventListener('submit', async (e) => {
   data.tahun_ajaran = SITE_CONFIG.TAHUN_AJARAN;
   data.reg_number = generateRegNumber();
 
-  // Simpan lokal (backup)
   const list = JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || '[]');
   list.unshift({ ...data, id: Date.now() });
   localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(list));
@@ -1122,7 +1165,39 @@ async function fetchDataFromSheet() {
   }
 }
 
+/* =========================================================
+   STATISTIK & RENDER DATA
+   ========================================================= */
+const JENJANG_LIST = [
+  { key: 'KB Islam Al-Mughni (3-4 tahun)', label: 'KB', icon: 'fa-baby', color: '#8B5CF6' },
+  { key: 'TK A Islam Al-Mughni (4-5 tahun)', label: 'TK A', icon: 'fa-child', color: '#EC4899' },
+  { key: 'TK B Islam Al-Mughni (5-6 tahun)', label: 'TK B', icon: 'fa-child-reaching', color: '#F59E0B' },
+  { key: 'SD Islam Al-Mughni', label: 'SD', icon: 'fa-pencil-ruler', color: '#2563EB' },
+  { key: 'SMP YAPIA Al-Mughni', label: 'SMP', icon: 'fa-graduation-cap', color: '#16A34A' }
+];
+
+function renderStatistik() {
+  const container = document.getElementById('statistikJenjang');
+  if (!container) return;
+  
+  container.innerHTML = JENJANG_LIST.map(j => {
+    const count = cachedData.filter(d => d['Jenjang'] === j.key).length;
+    return `
+      <div style="background:#FFFFFF;border-radius:12px;padding:16px;border-left:4px solid ${j.color};box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <i class="fas ${j.icon}" style="color:${j.color};font-size:16px;"></i>
+          <span style="font-size:12px;font-weight:600;color:#6B7280;">${j.label}</span>
+        </div>
+        <p style="font-size:24px;font-weight:800;color:${j.color};line-height:1;">${count}</p>
+        <p style="font-size:11px;color:#9CA3AF;margin-top:2px;">pendaftar</p>
+      </div>
+    `;
+  }).join('');
+}
+
 function renderData() {
+  renderStatistik();
+  
   const filter = document.getElementById('filterJenjang').value;
   let list = cachedData;
   if (filter) list = list.filter(d => d['Jenjang'] === filter);
@@ -1215,17 +1290,45 @@ function viewDetail(index) {
 }
 
 /* =========================================================
-   EXPORT EXCEL
+   MODAL DOWNLOAD — PILIH JENJANG
    ========================================================= */
-function exportExcel() {
-  const list = cachedData;
-  if (!list.length) { 
-    alert('Belum ada data untuk diunduh. Klik Refresh dulu.'); 
-    return; 
-  }
-
-  const headers = Object.keys(list[0]);
+function openDownloadModal() {
+  const modal = document.getElementById('downloadModal');
+  modal.style.display = 'flex';
   
+  document.getElementById('countAll').textContent = cachedData.length;
+  document.getElementById('countKB').textContent = cachedData.filter(d => d['Jenjang'] === 'KB Islam Al-Mughni (3-4 tahun)').length;
+  document.getElementById('countTKA').textContent = cachedData.filter(d => d['Jenjang'] === 'TK A Islam Al-Mughni (4-5 tahun)').length;
+  document.getElementById('countTKB').textContent = cachedData.filter(d => d['Jenjang'] === 'TK B Islam Al-Mughni (5-6 tahun)').length;
+  document.getElementById('countSD').textContent = cachedData.filter(d => d['Jenjang'] === 'SD Islam Al-Mughni').length;
+  document.getElementById('countSMP').textContent = cachedData.filter(d => d['Jenjang'] === 'SMP YAPIA Al-Mughni').length;
+}
+
+function closeDownloadModal() {
+  document.getElementById('downloadModal').style.display = 'none';
+}
+
+/* =========================================================
+   EXPORT EXCEL — SEMUA / PER JENJANG
+   ========================================================= */
+function exportExcelByJenjang(jenjangFilter) {
+  let list = cachedData;
+  let filenameSuffix = 'Semua';
+  
+  if (jenjangFilter) {
+    list = list.filter(d => d['Jenjang'] === jenjangFilter);
+    const found = JENJANG_LIST.find(j => j.key === jenjangFilter);
+    filenameSuffix = found ? found.label.replace(/\s/g, '-') : 'Jenjang';
+  }
+  
+  if (!list.length) {
+    alert(jenjangFilter 
+      ? 'Belum ada pendaftar untuk jenjang ini.' 
+      : 'Belum ada data untuk diunduh.');
+    return;
+  }
+  
+  const headers = Object.keys(list[0]);
   const rows = list.map(d => {
     const obj = {};
     headers.forEach(h => {
@@ -1233,13 +1336,17 @@ function exportExcel() {
     });
     return obj;
   });
-
+  
   const ws = XLSX.utils.json_to_sheet(rows, { header: headers });
   ws['!cols'] = headers.map(() => ({ wch: 20 }));
   
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'SPMB');
-  XLSX.writeFile(wb, `SPMB-AlMughni-${new Date().toISOString().slice(0,10)}.xlsx`);
+  
+  const date = new Date().toISOString().slice(0, 10);
+  XLSX.writeFile(wb, `SPMB-AlMughni-${filenameSuffix}-${date}.xlsx`);
+  
+  closeDownloadModal();
 }
 </script>
 
